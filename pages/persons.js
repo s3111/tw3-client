@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react"
 import Link from "next/link";
 import MainContainer from "../components/MainContainer";
-const Users = ({users}) => {
+const Persons = ({users}) => {
     return (
         <MainContainer>
             <h1>users</h1>
@@ -18,7 +18,7 @@ const Users = ({users}) => {
     );
 };
 
-export default Users;
+export default Persons;
 
 export async function getStaticProps(context){
     const response = await fetch('https://ukraine.web2ua.com/api/person/?searchType=List&name=&page=1&limit=30')
