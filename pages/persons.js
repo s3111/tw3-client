@@ -4,11 +4,11 @@ import MainContainer from "../components/MainContainer";
 const Persons = ({users}) => {
     return (
         <MainContainer>
-            <h1>users</h1>
+            <h1>Persons</h1>
             <ul>
                 {users.map(user =>
                     <li key={user.user_id}>
-                        <Link href={`/users/${user.screen_name}`}>
+                        <Link href={`/person/${user.screen_name}`}>
                             <a>{user.name}</a>
                         </Link>
                     </li>
