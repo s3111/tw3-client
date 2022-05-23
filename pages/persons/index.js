@@ -15,12 +15,14 @@ const Persons = ({users}) => {
 
             <Pagination className="mt-3">
                 <Pagination.First
-                    //disabled = {servers.page === 1 || disabled}
+                    disabled = {page === 1 }
+                    href = {"/persons"}
                     //onClick={() => servers.setPage(1)}
                 />
                 <Pagination.Prev
-                    //disabled = {servers.page === 1 || disabled}
+                    disabled = {page === 1}
                     //onClick={() => servers.setPage(servers.page-1)}
+                    href = {`/persons/${page - 1}`}
                 />
                 <Pagination.Item
                     //active={true}
@@ -29,12 +31,14 @@ const Persons = ({users}) => {
                     {page} of {pageCount}
                 </Pagination.Item>
                 <Pagination.Next
-                    //disabled = {servers.page === pageCount || disabled}
+                    disabled = {page === pageCount}
                     //onClick={() => servers.setPage(servers.page+1)}
+                    href = {`/persons/${page + 1}`}
                 />
                 <Pagination.Last
-                    //disabled = {servers.page === pageCount || disabled}
+                    disabled = {page === pageCount}
                     //onClick={() => servers.setPage(pageCount)}
+                    href = {`/persons/${pageCount}`}
                 />
             </Pagination>
 

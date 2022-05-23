@@ -2,11 +2,44 @@ import {useEffect, useState} from "react"
 import {useRouter} from "next/router";
 import Link from "next/link";
 import MainContainer from "../../components/MainContainer";
+import {Pagination} from "react-bootstrap";
 const Persons = ({users}) => {
     const {query} = useRouter()
+
+    let page = parseInt(query.page)
+    let limit = 20
+    const pageCount = Math.ceil(users.count / limit)
     return (
         <MainContainer>
             <h1>Persons</h1>
+            <Pagination className="mt-3">
+                <Pagination.First
+                    disabled = {page === 1 }
+                    href = {"/persons"}
+                    //onClick={() => servers.setPage(1)}
+                />
+                <Pagination.Prev
+                    disabled = {page === 1}
+                    //onClick={() => servers.setPage(servers.page-1)}
+                    href = {`/persons/${page - 1}`}
+                />
+                <Pagination.Item
+                    //active={true}
+                    //disabled = {disabled}
+                >
+                    {page} of {pageCount}
+                </Pagination.Item>
+                <Pagination.Next
+                    disabled = {page === pageCount}
+                    //onClick={() => servers.setPage(servers.page+1)}
+                    href = {`/persons/${page + 1}`}
+                />
+                <Pagination.Last
+                    disabled = {page === pageCount}
+                    //onClick={() => servers.setPage(pageCount)}
+                    href = {`/persons/${pageCount}`}
+                />
+            </Pagination>
             <ul>
                 {users.rows.map(user =>
                     <li key={user.user_id}>
