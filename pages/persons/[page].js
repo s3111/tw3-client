@@ -1,51 +1,31 @@
-import {useEffect, useState} from "react"
+import React, {useEffect, useState} from "react"
 import {useRouter} from "next/router";
 import Link from "next/link";
 import MainContainer from "../../components/MainContainer";
 import {Pagination} from "react-bootstrap";
+import HeadBlock from "../../components/HeadBlock";
+import PaginationBar from "../../components/PaginationBar";
+import PersonListItem from "../../components/PersonListItem";
 const Persons = ({users}) => {
     const {query} = useRouter()
-
     let page = parseInt(query.page)
     let limit = 20
-    const pageCount = Math.ceil(users.count / limit)
+    const pages = Math.ceil(users.count / limit)
+
+    let title = 'Ukraine Tweets'
+    let h1 = 'Persons - Ukraine Tweets'
+    let description = 'Twitter persons list with count tweets about Ukraine'
+    let image = '/ukraine-unity.jpeg'
+
     return (
         <MainContainer>
-            <h1>Persons</h1>
-            <Pagination className="mt-3">
-                <Pagination.First
-                    disabled = {page === 1 }
-                    href = {"/persons"}
-                    //onClick={() => servers.setPage(1)}
-                />
-                <Pagination.Prev
-                    disabled = {page === 1}
-                    //onClick={() => servers.setPage(servers.page-1)}
-                    href = {`/persons/${page - 1}`}
-                />
-                <Pagination.Item
-                    //active={true}
-                    //disabled = {disabled}
-                >
-                    {page} of {pageCount}
-                </Pagination.Item>
-                <Pagination.Next
-                    disabled = {page === pageCount}
-                    //onClick={() => servers.setPage(servers.page+1)}
-                    href = {`/persons/${page + 1}`}
-                />
-                <Pagination.Last
-                    disabled = {page === pageCount}
-                    //onClick={() => servers.setPage(pageCount)}
-                    href = {`/persons/${pageCount}`}
-                />
-            </Pagination>
+            <HeadBlock description={description} image={image} title={title}/>
+            <h1>{h1}</h1>
+            <PaginationBar base={"/persons"} page={page} pages={pages}/>
             <ul>
                 {users.rows.map(user =>
                     <li key={user.user_id}>
-                        <Link href={`/person/${user.screen_name}`}>
-                            <a>{user.name}</a>
-                        </Link>
+                        <PersonListItem user = {user}/>
                     </li>
                 )}
             </ul>
