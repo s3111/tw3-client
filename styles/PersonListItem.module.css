@@ -1,0 +1,10 @@
+.personName {
+    font-weight: bold;
+}
+.personImg {
+    border-radius: 50%;
+}
+.personScreenName {
+    font-size: 0.875rem;
+    color: grey;
+}

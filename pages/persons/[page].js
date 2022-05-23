@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react"
 import {useRouter} from "next/router";
 import Link from "next/link";
 import MainContainer from "../../components/MainContainer";
-import {Pagination} from "react-bootstrap";
+import {Col, Container, Pagination, Row} from "react-bootstrap";
 import HeadBlock from "../../components/HeadBlock";
 import PaginationBar from "../../components/PaginationBar";
 import PersonListItem from "../../components/PersonListItem";
@@ -22,13 +22,18 @@ const Persons = ({users}) => {
             <HeadBlock description={description} image={image} title={title}/>
             <h1>{h1}</h1>
             <PaginationBar base={"/persons"} page={page} pages={pages}/>
-            <ul>
+            <Container>
                 {users.rows.map(user =>
-                    <li key={user.user_id}>
-                        <PersonListItem user = {user}/>
-                    </li>
+                    <Row key={user.user_id}>
+                        <Col>
+                            <PersonListItem user = {user}/>
+                        </Col>
+                        <Col sm={1}>
+                            <span >{user.tw_count}</span>
+                        </Col>
+                    </Row>
                 )}
-            </ul>
+            </Container>
         </MainContainer>
     );
 };

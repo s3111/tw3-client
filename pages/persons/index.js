@@ -3,7 +3,7 @@ import React from "react"
 import {useRouter} from "next/router";
 import Link from "next/link";
 import MainContainer from "../../components/MainContainer";
-import {Card, Row, Col, Pagination} from "react-bootstrap";
+import {Card, Row, Col, Pagination, Container} from "react-bootstrap";
 import Head from "next/head";
 //import Col from "react-bootstrap/Col";
 
@@ -27,13 +27,18 @@ const Persons = ({users}) => {
             <HeadBlock description={description} image={image} title={title}/>
             <h1>{h1}</h1>
             <PaginationBar base={"/persons"} page={page} pages={pages}/>
-            <ul>
+            <Container>
                 {users.rows.map(user =>
-                    <li key={user.user_id}>
-                        <PersonListItem user = {user}/>
-                    </li>
+                    <Row key={user.user_id}>
+                            <Col>
+                                <PersonListItem user = {user}/>
+                            </Col>
+                            <Col sm={1}>
+                                <span >{user.tw_count}</span>
+                            </Col>
+                    </Row>
                 )}
-            </ul>
+            </Container>
         </MainContainer>
     );
 };
