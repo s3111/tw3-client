@@ -45,15 +45,34 @@ export default function NavbarElement(){
         <Navbar bg="primary" variant="dark"  collapseOnSelect expand="sm" >
             <Container>
                 <Navbar.Brand href="/">
-                    <Image src="/heart-.webp" width="26" height="26" className="d-inline-block align-top" alt={mainTitle} />
+                    <Image src="/heart-.webp" width="30" height="27" className="d-inline-block align-top" alt={mainTitle} />
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav>
-                        <Nav.Link href="/tweets">Tweets</Nav.Link>
+                        <Link href="/tweets" passHref>
+                            <Nav.Link>Tweets</Nav.Link>
+                        </Link>
+                        <Link href={"/persons"}>
+                            <Nav.Link href="/persons">Persons</Nav.Link>
+                        </Link>
+                        <Link href={"/entities"}>
+                            <Nav.Link href="/entities">Entities</Nav.Link>
+                        </Link>
+                        <Link href={"/statistics"}>
+                            <Nav.Link href="/statistics">Stat</Nav.Link>
+                        </Link>
+
+
+
+                        {
+                            /*
+                            <Nav.Link href="/tweets">Tweets</Nav.Link>
                         <Nav.Link href="/persons">Persons</Nav.Link>
                         <Nav.Link href="/entities">Entities</Nav.Link>
                         <Nav.Link href="/statistics">Stat</Nav.Link>
+                             */
+                        }
                     </Nav>
                 </Navbar.Collapse>
             </Container>

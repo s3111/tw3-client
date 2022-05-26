@@ -21,6 +21,20 @@ export default function HeadBlock({description,image,title}){
             <meta property="og:site_name" content="Ukraine Twitter Analytics" />
             <meta property="og:locale" content="en_US" />
             <meta property="og:type" content="article" />
+
+            <script async src="https://www.googletagmanager.com/gtag/js?id=UA-5867435-49"/>
+
+            <script
+                dangerouslySetInnerHTML={{
+                    __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'UA-5867435-49', { page_path: window.location.pathname });
+            `,
+                }}
+            />
+
         </Head>
     )
 }

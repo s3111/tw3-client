@@ -1,8 +1,6 @@
 import Link from "next/link";
-import styles from "../styles/A.module.css"
 import {Pagination} from "react-bootstrap";
 import React from "react";
-
 
 export default function PaginationBar({base,page,pages}){
     return(
@@ -10,7 +8,6 @@ export default function PaginationBar({base,page,pages}){
             <Pagination.First
                 disabled = {page === 1 }
                 href = {base}
-                //onClick={() => servers.setPage(1)}
             />
             <Pagination.Prev
                 disabled = {page === 1}
@@ -20,20 +17,15 @@ export default function PaginationBar({base,page,pages}){
                     : `${base}/${page - 1}`
                 }
             />
-            <Pagination.Item
-                //active={true}
-                //disabled = {disabled}
-            >
+            <Pagination.Item>
                 {page} of {pages}
             </Pagination.Item>
             <Pagination.Next
                 disabled = {page === pages}
-                //onClick={() => servers.setPage(servers.page+1)}
                 href = {`${base}/${page + 1}`}
             />
             <Pagination.Last
                 disabled = {page === pages}
-                //onClick={() => servers.setPage(pageCount)}
                 href = {`${base}/${pages}`}
             />
         </Pagination>

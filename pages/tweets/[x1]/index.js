@@ -37,7 +37,7 @@ const Tweets = ({entities,tweets}) => {
             } page={page} pages={pages}/>
             <Container>
                 {tweets.rows.map(tweet =>
-                    <TweetItem tweet = {tweet} key={tweet.tw_id}/>
+                    <TweetItem tweet = {tweet} key={tweet.tw_id} entityName={entityName}/>
                 )}
             </Container>
         </MainContainer>
