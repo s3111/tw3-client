@@ -27,11 +27,7 @@ const Tweets = ({entities,tweets}) => {
             <PaginationBar base={`/tweets/${entityName}`} page={page} pages={pages}/>
             <Container>
                 {tweets.rows.map(tweet =>
-                    <Row key={tweet.tw_id}>
-                        <Col>
-                            <TweetItem tweet = {tweet} />
-                        </Col>
-                    </Row>
+                    <TweetItem tweet = {tweet} key={tweet.tw_id}/>
                 )}
             </Container>
         </MainContainer>

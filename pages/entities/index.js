@@ -4,13 +4,14 @@ import MainContainer from "../../components/MainContainer";
 import {Row, Col, Container} from "react-bootstrap";
 import PaginationBar from "../../components/PaginationBar";
 import HeadBlock from "../../components/HeadBlock";
-import EntitiesBar from "../../components/EntitiesBar";
-import TweetItem from "../../components/TweetItem";
-const Tweets = ({entities,tweets}) => {
+import EntitiesTypesBar from "../../components/EntitiesTypesBar";
+import EntityItem from "../../components/EntityItem";
+
+const Entities = ({entities,entitiesTypes}) => {
     const {query} = useRouter()
     let page = 1
-    let limit = 10
-    const pages = Math.ceil(tweets.count / limit)
+    let limit = 30
+    const pages = Math.ceil(entities.count / limit)
 
     let title = 'Ukraine Tweets'
     let h1 = 'Ukraine Tweets'
@@ -21,32 +22,33 @@ const Tweets = ({entities,tweets}) => {
         <MainContainer>
             <HeadBlock description={description} image={image} title={title}/>
             <h1>{h1}</h1>
-            <EntitiesBar entities={entities} selectedEntityName={"All"}/>
-            <PaginationBar base={"/tweets"} page={page} pages={pages}/>
+            <EntitiesTypesBar types={entitiesTypes} selectedEntityName={"All"}/>
+            <PaginationBar base={"/entities"} page={page} pages={pages}/>
             <Container>
-                {tweets.rows.map(tweet =>
-                    <TweetItem tweet = {tweet} key={tweet.tw_id}/>
+                {entities.rows.map(entity =>
+                     <EntityItem entity = {entity} key={entity.id}/>
                 )}
             </Container>
         </MainContainer>
     );
 };
 
-export default Tweets;
+export default Entities;
 
 export async function getServerSideProps({params}){
     //let page = params.page ?? 1
     //let limit = params.limit ?? 20
     console.log(params)
     let page = 1
-    let limit = 10
+    let limit = 30
+    let name = 'All'
 
-    const ent = await fetch(`https://ukraine.web2ua.com/api/entity/?searchType=Bar`)
-    const tw = await fetch(`https://ukraine.web2ua.com/api/tweet/?searchType=All&page=${page}&limit=${limit}`)
+    const ent = await fetch(`https://ukraine.web2ua.com/api/entity?searchType=List&name=${name}&page=${page}&limit=${limit}`)
+    const types = await fetch(`https://ukraine.web2ua.com/api/entity/types?searchType=All`)
     const entities = await ent.json()
-    const tweets = await tw.json()
+    const entitiesTypes = await types.json()
     //const users = data
     return{
-        props: {entities,tweets}
+        props: {entities,entitiesTypes}
     }
 }

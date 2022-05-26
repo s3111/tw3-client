@@ -4,21 +4,21 @@ import MainContainer from "../../../components/MainContainer";
 import {Row, Col, Container} from "react-bootstrap";
 import PaginationBar from "../../../components/PaginationBar";
 import HeadBlock from "../../../components/HeadBlock";
-import EntitiesBar from "../../../components/EntitiesBar";
-import TweetItem from "../../../components/TweetItem";
-const Tweets = ({entities,tweets}) => {
+import EntitiesTypesBar from "../../../components/EntitiesTypesBar";
+import EntityItem from "../../../components/EntityItem";
+
+const Entities = ({entities,entitiesTypes}) => {
     const {query} = useRouter()
-    let entityName = 'All'
     let page = 1
+    let entityType = 'All'
     let x1 = query.x1
     if (x1 != parseInt(x1)){
-        entityName = x1
+        entityType = x1
     }else {
         page = parseInt(x1)
     }
-
-    let limit = 10
-    const pages = Math.ceil(tweets.count / limit)
+    let limit = 30
+    const pages = Math.ceil(entities.count / limit)
 
     let title = 'Ukraine Tweets'
     let h1 = 'Ukraine Tweets'
@@ -29,40 +29,39 @@ const Tweets = ({entities,tweets}) => {
         <MainContainer>
             <HeadBlock description={description} image={image} title={title}/>
             <h1>{h1}</h1>
-            <EntitiesBar entities={entities} selectedEntityName={entityName}/>
-            <PaginationBar base={
-                entityName
-                    ? `/tweets/${entityName}`
-                    : "/tweets"
-            } page={page} pages={pages}/>
+            <EntitiesTypesBar types={entitiesTypes} selectedEntityName={"All"}/>
+            <PaginationBar base={"/entities"} page={page} pages={pages}/>
             <Container>
-                {tweets.rows.map(tweet =>
-                    <TweetItem tweet = {tweet} key={tweet.tw_id}/>
+                {entities.rows.map(entity =>
+                     <EntityItem entity = {entity} key={entity.id}/>
                 )}
             </Container>
         </MainContainer>
     );
 };
 
-export default Tweets;
+export default Entities;
 
 export async function getServerSideProps({params}){
-    let entityName = 'All'
+    //let page = params.page ?? 1
+    //let limit = params.limit ?? 20
+    //console.log(params)
     let page = 1
+    let limit = 30
+    let name = 'All'
+
     if (params.x1 != parseInt(params.x1)){
-        entityName = params.x1
+        name = params.x1
     }else {
         page = parseInt(params.x1)
     }
-    console.log(params)
-    let limit = 10
 
-    const ent = await fetch(`https://ukraine.web2ua.com/api/entity/?searchType=Bar`)
-    const tw = await fetch(`https://ukraine.web2ua.com/api/tweet/?searchType=Entity&entity=${entityName}&page=${page}&limit=${limit}`)
+    const ent = await fetch(`https://ukraine.web2ua.com/api/entity?searchType=List&name=${name}&page=${page}&limit=${limit}`)
+    const types = await fetch(`https://ukraine.web2ua.com/api/entity/types?searchType=All`)
     const entities = await ent.json()
-    const tweets = await tw.json()
+    const entitiesTypes = await types.json()
     //const users = data
     return{
-        props: {entities,tweets}
+        props: {entities,entitiesTypes}
     }
 }

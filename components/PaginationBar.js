@@ -14,8 +14,11 @@ export default function PaginationBar({base,page,pages}){
             />
             <Pagination.Prev
                 disabled = {page === 1}
-                //onClick={() => servers.setPage(servers.page-1)}
-                href = {`${base}/${page - 1}`}
+                href = {
+                    page === 2
+                    ? `${base}`
+                    : `${base}/${page - 1}`
+                }
             />
             <Pagination.Item
                 //active={true}
