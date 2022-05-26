@@ -12,11 +12,10 @@ const Entities = ({entities,entitiesTypes}) => {
     let page = 1
     let entityType = 'All'
     let x1 = query.x1
-    if (x1 != parseInt(x1)){
-        entityType = x1
-    }else {
-        page = parseInt(x1)
-    }
+    let x2 = query.x2
+    entityType = x1
+    page = parseInt(x2)
+
     let limit = 30
     const pages = Math.ceil(entities.count / limit)
 
@@ -30,11 +29,7 @@ const Entities = ({entities,entitiesTypes}) => {
             <HeadBlock description={description} image={image} title={title}/>
             <h1>{h1}</h1>
             <EntitiesTypesBar types={entitiesTypes} selectedEntityName={"All"}/>
-            <PaginationBar base={
-                entityType
-                    ? `/entities/${entityType}`
-                    : "/entities"
-            } page={page} pages={pages}/>
+            <PaginationBar base={`/entities/${entityType}`} page={page} pages={pages}/>
             <Container>
                 {entities.rows.map(entity =>
                      <EntityItem entity = {entity} key={entity.id}/>
@@ -53,12 +48,8 @@ export async function getServerSideProps({params}){
     let page = 1
     let limit = 30
     let name = 'All'
-
-    if (params.x1 != parseInt(params.x1)){
-        name = params.x1
-    }else {
-        page = parseInt(params.x1)
-    }
+    name = params.x1
+    page = parseInt(params.x1)
 
     const ent = await fetch(`https://ukraine.web2ua.com/api/entity?searchType=List&name=${name}&page=${page}&limit=${limit}`)
     const types = await fetch(`https://ukraine.web2ua.com/api/entity/types?searchType=All`)
