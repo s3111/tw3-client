@@ -20,10 +20,12 @@ export default function PaginationBar({base,page,pages}){
             <Pagination.Item>
                 {page} of {pages}
             </Pagination.Item>
-            <Pagination.Next
-                disabled = {page === pages}
-                href = {`${base}/${page + 1}`}
-            />
+            <Link href={`${base}/${page + 1}`} passHref>
+                <Pagination.Next
+                    disabled = {page === pages}
+                    href = {`${base}/${page + 1}`}
+                />
+            </Link>
             <Pagination.Last
                 disabled = {page === pages}
                 href = {`${base}/${pages}`}

@@ -49,7 +49,7 @@ export async function getServerSideProps({params}){
     let limit = 30
     let name = 'All'
     name = params.x1
-    page = parseInt(params.x1)
+    page = parseInt(params.x2)
 
     const ent = await fetch(`https://ukraine.web2ua.com/api/entity?searchType=List&name=${name}&page=${page}&limit=${limit}`)
     const types = await fetch(`https://ukraine.web2ua.com/api/entity/types?searchType=All`)
