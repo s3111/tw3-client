@@ -57,8 +57,8 @@ export async function getServerSideProps({params}){
     console.log(params)
     let limit = 10
 
-    const ent = await fetch(`https://ukraine.web2ua.com/api/entity/?searchType=Bar`)
-    const tw = await fetch(`https://ukraine.web2ua.com/api/tweet/?searchType=Entity&entity=${entityName}&page=${page}&limit=${limit}`)
+    const ent = await fetch(process.env.API_URL +`/entity/?searchType=Bar`)
+    const tw = await fetch(process.env.API_URL +`/tweet/?searchType=Entity&entity=${entityName}&page=${page}&limit=${limit}`)
     const entities = await ent.json()
     const tweets = await tw.json()
     //const users = data

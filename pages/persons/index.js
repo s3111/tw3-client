@@ -51,7 +51,7 @@ export async function getServerSideProps({params}){
     console.log(params)
     let page = 1
     let limit = 20
-    const response = await fetch(`https://ukraine.web2ua.com/api/person/?searchType=List&page=${page}&limit=${limit}`)
+    const response = await fetch(process.env.API_URL +`/person/?searchType=List&page=${page}&limit=${limit}`)
     const data = await response.json()
     const users = data
     return{

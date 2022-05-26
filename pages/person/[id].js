@@ -146,13 +146,13 @@ export default function User({person,tweets}){
     )
 }
 export async function getServerSideProps({params}){
-    const pers = await fetch(`https://ukraine.web2ua.com/api/person/${params.id}?searchType=All`)
+    const pers = await fetch(process.env.API_URL +`/person/${params.id}?searchType=All`)
     const person = await pers.json()
     let tweets = {}
     if(person.tw_id){
         let page = 1
         let limit = 10
-        let tw = await fetch(`https://ukraine.web2ua.com/api/tweet?searchType=Person&entity=${person.tw_id}&page=${page}&limit=${limit}`)
+        let tw = await fetch(process.env.API_URL +`/tweet?searchType=Person&entity=${person.tw_id}&page=${page}&limit=${limit}`)
         tweets = await tw.json()
     }
 

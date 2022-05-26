@@ -51,8 +51,8 @@ export async function getServerSideProps({params}){
     name = params.x1
     page = parseInt(params.x2)
 
-    const ent = await fetch(`https://ukraine.web2ua.com/api/entity?searchType=List&name=${name}&page=${page}&limit=${limit}`)
-    const types = await fetch(`https://ukraine.web2ua.com/api/entity/types?searchType=All`)
+    const ent = await fetch(process.env.API_URL +`/entity?searchType=List&name=${name}&page=${page}&limit=${limit}`)
+    const types = await fetch(process.env.API_URL +`/entity/types?searchType=All`)
     const entities = await ent.json()
     const entitiesTypes = await types.json()
     //const users = data

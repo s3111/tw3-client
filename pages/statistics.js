@@ -43,7 +43,7 @@ const Stat = ({stat}) => {
 export default Stat;
 
 export async function getServerSideProps({params}){
-    const response = await fetch(`https://ukraine.web2ua.com/api/stat`)
+    const response = await fetch(process.env.API_URL +`/stat`)
     const stat = await response.json()
     return{
         props: {stat}
