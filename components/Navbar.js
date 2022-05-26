@@ -44,35 +44,26 @@ export default function NavbarElement(){
 
         <Navbar bg="primary" variant="dark"  collapseOnSelect expand="sm" >
             <Container>
-                <Navbar.Brand href="/">
-                    <Image src="/heart-.webp" width="30" height="27" className="d-inline-block align-top" alt={mainTitle} />
-                </Navbar.Brand>
+                <Link href={"/"} passHref>
+                    <Navbar.Brand>
+                        <Image src="/heart-.webp" width="30" height="27" className="d-inline-block align-top" alt={mainTitle} />
+                    </Navbar.Brand>
+                </Link>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav>
-                        <Link href="/tweets" passHref>
+                        <Link href={"/tweets"} passHref>
                             <Nav.Link>Tweets</Nav.Link>
                         </Link>
-                        <Link href={"/persons"}>
-                            <Nav.Link href="/persons">Persons</Nav.Link>
+                        <Link href={"/persons"} passHref>
+                            <Nav.Link>Persons</Nav.Link>
                         </Link>
-                        <Link href={"/entities"}>
-                            <Nav.Link href="/entities">Entities</Nav.Link>
+                        <Link href={"/entities"} passHref>
+                            <Nav.Link>Entities</Nav.Link>
                         </Link>
-                        <Link href={"/statistics"}>
-                            <Nav.Link href="/statistics">Stat</Nav.Link>
+                        <Link href={"/statistics"} passHref>
+                            <Nav.Link>Stat</Nav.Link>
                         </Link>
-
-
-
-                        {
-                            /*
-                            <Nav.Link href="/tweets">Tweets</Nav.Link>
-                        <Nav.Link href="/persons">Persons</Nav.Link>
-                        <Nav.Link href="/entities">Entities</Nav.Link>
-                        <Nav.Link href="/statistics">Stat</Nav.Link>
-                             */
-                        }
                     </Nav>
                 </Navbar.Collapse>
             </Container>
