@@ -53,7 +53,7 @@ export default function NavbarElement(){
                         <Nav.Link href="/tweets">Tweets</Nav.Link>
                         <Nav.Link href="/persons">Persons</Nav.Link>
                         <Nav.Link href="/entities">Entities</Nav.Link>
-                        <Nav.Link href="/stat">Stat</Nav.Link>
+                        <Nav.Link href="/statistics">Stat</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>

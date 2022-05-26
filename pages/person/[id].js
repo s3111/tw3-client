@@ -4,7 +4,8 @@ import MainContainer from "../../components/MainContainer";
 import HeadBlock from "../../components/HeadBlock";
 import React from "react";
 import {Col, Container, Pagination, Row} from "react-bootstrap";
-export default function User(person){
+import TweetItem from "../../components/TweetItem";
+export default function User({person,tweets}){
     const {query} = useRouter()
 
     let title = 'Person Ukraine Tweets'
@@ -113,6 +114,11 @@ export default function User(person){
                         style={{cursor:'pointer'}}
                     >previous page</span>
                     </div>
+                    <Container>
+                        {tweets.rows.map(tweet =>
+                            <TweetItem tweet = {tweet} key={tweet.tw_id} person={person}/>
+                        )}
+                    </Container>
 
                     {
                         /*
@@ -140,11 +146,19 @@ export default function User(person){
     )
 }
 export async function getServerSideProps({params}){
-    const response = await fetch(`https://ukraine.web2ua.com/api/person/${params.id}?searchType=All`)
-    const person = await response.json()
-    console.log(person)
+    const pers = await fetch(`https://ukraine.web2ua.com/api/person/${params.id}?searchType=All`)
+    const person = await pers.json()
+    let tweets = {}
+    if(person.tw_id){
+        let page = 1
+        let limit = 10
+        let tw = await fetch(`https://ukraine.web2ua.com/api/tweet?searchType=Person&entity=${person.tw_id}&page=${page}&limit=${limit}`)
+        tweets = await tw.json()
+    }
+
+    //console.log(tweets)
     //const users = data.rows
     return{
-        props: person
+        props: {person, tweets}
     }
 }

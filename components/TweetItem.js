@@ -4,8 +4,13 @@ import {Col, Row,Card} from "react-bootstrap";
 import Image from "next/image";
 import React from "react";
 
-export default function TweetItem({tweet,entityName}){
+export default function TweetItem({tweet,entityName,person}){
     let i = tweet
+    let imgSrc = i.profile_image_url_https || person.profile_image_url_https
+    let name = i.name || person.name
+    let screen_name = i.screen_name || person.screen_name
+
+
     const timeAgoTweet = (time)=>{
         let timeAgo = ''
         if(time){
@@ -60,7 +65,7 @@ export default function TweetItem({tweet,entityName}){
                         //onClick={() => selectPerson(i)}
                     >
                         <Col xs="auto">
-                            <Image style={{borderRadius: '50%'}} width={"48"} height={"48"} alt={i.name} src={i.profile_image_url_https}/>
+                            <Image style={{borderRadius: '50%'}} width={"48"} height={"48"} alt={name} src={imgSrc}/>
                         </Col>
                         <Col>
                             <Row>
@@ -71,11 +76,11 @@ export default function TweetItem({tweet,entityName}){
                                         //onClick={() => selectPerson(i)}
                                         //border={i.tw_id === tweet.selectedEntity.id ? 'primary':'light'}
                                     >
-                                    {i.name}
+                                    {name}
                                     </span>
                             </Row>
                             <Row>
-                                <span className="text-secondary text-sm-start" style={{fontSize:'.875rem'}}>@{i.screen_name}</span>
+                                <span className="text-secondary text-sm-start" style={{fontSize:'.875rem'}}>@{screen_name}</span>
                             </Row>
                         </Col>
                     </Row>
