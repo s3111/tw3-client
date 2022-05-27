@@ -16,7 +16,7 @@ export default function User({person,tweets}){
     if(person.name)  {
         h1 = person.name + ' - ' + h1
         title = `${person.name} - Ukraine Tweets`
-        description = `@${person.screen_name} ${person.description} ${person.location}`
+        description = '@' + person.screen_name +' ' + (person.description ? person.description : '') + (person.location ? person.location : '')
         image = person.profile_banner_url ? person.profile_banner_url : '/ukraine-unity.jpeg'
     }
     let p = person

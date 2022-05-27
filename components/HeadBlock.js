@@ -10,7 +10,6 @@ export default function HeadBlock({description,image,title}){
         <Head>
             <title>{title}</title>
             <meta name="description" content={description} />
-            <meta name="twitter:card" content={image} />
             <meta name="twitter:title" content={title} />
             <meta name="twitter:description" content={description} />
             <meta name="twitter:image" content={image} />
@@ -21,6 +20,7 @@ export default function HeadBlock({description,image,title}){
             <meta property="og:site_name" content="Ukraine Twitter Analytics" />
             <meta property="og:locale" content="en_US" />
             <meta property="og:type" content="article" />
+            <meta name="twitter:card" content="summary_large_image"/>
 
             <script async src="https://www.googletagmanager.com/gtag/js?id=UA-5867435-49"/>
 
