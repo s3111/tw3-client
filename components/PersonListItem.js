@@ -6,8 +6,8 @@ import React from "react";
 
 export default function PersonListItem({user}){
     return(
-            <Link href={`/person/${user.screen_name}`}>
-                <a>
+            <Link href={`/person/${user.screen_name}`} >
+                <a className={"linkPerson"}>
                     <Row>
                         <Col xs="auto" className={"px-1"}>
                             <Image width={"48"} height={"48"} alt={user.name} className={styles.personImg} src={user.profile_image_url_https}/>

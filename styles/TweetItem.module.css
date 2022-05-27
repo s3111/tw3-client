@@ -1,0 +1,23 @@
+.personName {
+    font-weight: bold;
+    /*
+    font-size: 1.1rem;
+
+    */
+}
+.personImg {
+    border-radius: 50%;
+}
+.personScreenName {
+    font-size: 0.875rem;
+    color: grey;
+}
+
+.postTime {
+    font-size: 0.875rem;
+    color: darkgray;
+}
+a.linkPerson{
+    text-decoration: none !important;
+    text-decoration-line: none;
+}

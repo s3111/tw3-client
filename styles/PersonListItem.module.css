@@ -1,5 +1,14 @@
+a.linkPerson span {
+    text-decoration: none !important;
+    text-decoration-line: none;
+}
+a.linkPerson{
+    text-decoration: none !important;
+    text-decoration-line: none;
+}
 .personName {
     font-weight: bold;
+    text-decoration: none;
 }
 .personImg {
     border-radius: 50%;

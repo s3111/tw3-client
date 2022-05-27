@@ -1,5 +1,5 @@
 import Link from "next/link";
-import styles from "../styles/PersonListItem.module.css"
+import styles from "../styles/TweetItem.module.css"
 import {Col, Row,Card} from "react-bootstrap";
 import Image from "next/image";
 import React from "react";
@@ -35,8 +35,8 @@ export default function TweetItem({tweet,entityName,person}){
         const entity = props.entity;
         let replacedText, replacePattern1, replacePattern2, replacePattern3, replacePattern4, replacePattern5;
 
-        replacePattern4 = /(#?Ukraine)/gim;
-        replacedText = inputText.replace(replacePattern4, '<span class="text-success">$1</span>');
+        replacePattern4 = / (#?Ukraine)(\W)/gim;
+        replacedText = inputText.replace(replacePattern4, ' <span class="text-success">$1</span>$2');
 
         if(entity && entity !== 'All'){
             let replace = "([#,@]?" + entity + ")";
@@ -51,55 +51,43 @@ export default function TweetItem({tweet,entityName,person}){
 
         replacePattern3 = /#([a-zA-Z0-9\-\_\.]+)+/gim;
         replacedText = replacedText.replace(replacePattern3, '<a href="/tweets/$1">#$1</a>');
-
+        console.log({__html: replacedText})
         return (
             <p dangerouslySetInnerHTML={{__html: replacedText}}></p>
         );
     }
     return(
-        <Row key={i.tw_id}>
-            <Card className={"my-2 p-3"} >
-                <Col>
-                    <Row
-                        style={{cursor: 'pointer',}}
-                        //onClick={() => selectPerson(i)}
-                    >
-                        <Col xs="auto" className={"px-0"}>
-                            <Image style={{borderRadius: '50%'}} width={"48"} height={"48"} alt={name} src={imgSrc}/>
-                        </Col>
-                        <Col>
-                            <Row>
-                                    <span
-                                        className="font-weight-bold"
-                                        //href={TWEETS_ROUTE + '/' + i.name}
-                                        style={{cursor: 'pointer',}}
-                                        //onClick={() => selectPerson(i)}
-                                        //border={i.tw_id === tweet.selectedEntity.id ? 'primary':'light'}
-                                    >
-                                    {name}
-                                    </span>
-                            </Row>
-                            <Row>
-                                <span className="text-secondary text-sm-start" style={{fontSize:'.875rem'}}>@{screen_name}</span>
-                            </Row>
-                        </Col>
-                    </Row>
-                    <Row className={"mt-2"}>
-                        <Linkify inputText = {i.body} entity={entityName} />
-                    </Row>
-                    <Row>
-                        <time
-                            title={`Time Posted: ${new Date(i.tweet_date).toUTCString()}`}
-                            dateTime={new Date(i.tweet_date).toISOString()}
-                        >
-                            {
-                                //format(new Date(i.tweet_date), 'h:mm a - MMM d, y')
-                                timeAgoTweet(i.tweet_date)
-                            }
-                        </time>
-                    </Row>
-                </Col>
-            </Card>
-        </Row>
+        <Card className={"my-2 p-3"} key={i.tw_id}>
+            <Row>
+                <Link href={`/person/${screen_name}`}>
+                    <a className={styles.linkPerson}>
+                        <Row>
+                            <Col xs="auto" className={"px-1"}>
+                                <Image className={styles.personImg} width={"48"} height={"48"} alt={name} src={imgSrc}/>
+                            </Col>
+                            <Col className={"px-0"}>
+                                <Row>
+                                    <Col>
+                                        <span className={styles.personName}>{name}</span>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col>
+                                        <span className={styles.personScreenName}>@{screen_name}</span>
+                                        <span>&nbsp;·&nbsp;</span>
+                                        <time className={styles.postTime} title={`Time Posted: ${new Date(i.tweet_date).toUTCString()}`} dateTime={new Date(i.tweet_date).toISOString()}>
+                                            {timeAgoTweet(i.tweet_date)}
+                                        </time>
+                                    </Col>
+                                </Row>
+                            </Col>
+                        </Row>
+                    </a>
+                </Link>
+            </Row>
+            <Row className={"mt-2"}>
+                <Linkify inputText = {i.body} entity={entityName} />
+            </Row>
+        </Card>
     )
 }
