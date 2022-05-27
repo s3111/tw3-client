@@ -10,7 +10,7 @@ import EntityItem from "../../components/EntityItem";
 const Entities = ({entities,entitiesTypes}) => {
     const {query} = useRouter()
     let page = 1
-    let limit = 30
+    let limit = 20
     const pages = Math.ceil(entities.count / limit)
 
     let title = 'Ukraine Tweets'
@@ -21,13 +21,16 @@ const Entities = ({entities,entitiesTypes}) => {
     return (
         <MainContainer>
             <HeadBlock description={description} image={image} title={title}/>
-            <h1>{h1}</h1>
-            <EntitiesTypesBar types={entitiesTypes} selectedEntityName={"All"}/>
-            <PaginationBar base={"/entities"} page={page} pages={pages}/>
-            <Container>
-                {entities.rows.map(entity =>
-                     <EntityItem entity = {entity} key={entity.id}/>
-                )}
+            <Container style={{maxWidth: '700px'}}>
+                <h1>{h1}</h1>
+                <EntitiesTypesBar types={entitiesTypes} selectedEntityName={"All"}/>
+                <PaginationBar base={"/entities"} page={page} pages={pages}/>
+                <div>
+                    {entities.rows.map(entity =>
+                        <EntityItem entity = {entity} key={entity.id}/>
+                    )}
+                </div>
+                <PaginationBar base={"/entities"} page={page} pages={pages}/>
             </Container>
         </MainContainer>
     );
@@ -40,7 +43,7 @@ export async function getServerSideProps({params}){
     //let limit = params.limit ?? 20
     console.log(params)
     let page = 1
-    let limit = 30
+    let limit = 20
     let name = 'All'
     console.log('utl', process.env.API_URL)
     const ent = await fetch(process.env.API_URL + `/entity?searchType=List&name=${name}&page=${page}&limit=${limit}`)

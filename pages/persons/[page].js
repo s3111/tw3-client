@@ -9,7 +9,7 @@ import PersonListItem from "../../components/PersonListItem";
 const Persons = ({users}) => {
     const {query} = useRouter()
     let page = parseInt(query.page)
-    let limit = 20
+    let limit = 10
     const pages = Math.ceil(users.count / limit)
 
     let title = 'Ukraine Tweets'
@@ -20,19 +20,22 @@ const Persons = ({users}) => {
     return (
         <MainContainer>
             <HeadBlock description={description} image={image} title={title}/>
-            <h1>{h1}</h1>
-            <PaginationBar base={"/persons"} page={page} pages={pages}/>
-            <Container>
-                {users.rows.map(user =>
-                    <Row key={user.user_id}>
-                        <Col>
-                            <PersonListItem user = {user}/>
-                        </Col>
-                        <Col sm={1}>
-                            <span >{user.tw_count}</span>
-                        </Col>
-                    </Row>
-                )}
+            <Container style={{maxWidth: '700px'}}>
+                <h1>{h1}</h1>
+                <PaginationBar base={"/persons"} page={page} pages={pages}/>
+                <div>
+                    {users.rows.map(user =>
+                        <Row key={user.user_id}>
+                            <Col xs={9}>
+                                <PersonListItem user = {user}/>
+                            </Col>
+                            <Col xs={3}>
+                                <span >{user.tw_count}</span>
+                            </Col>
+                        </Row>
+                    )}
+                </div>
+                <PaginationBar base={"/persons"} page={page} pages={pages}/>
             </Container>
         </MainContainer>
     );
@@ -45,7 +48,7 @@ export async function getServerSideProps({params}){
     //let limit = params.limit ?? 20
     console.log(params)
     //let page = 1
-    let limit = 20
+    let limit = 10
     const response = await fetch(process.env.API_URL +`/person/?searchType=List&page=${page}&limit=${limit}`)
     const data = await response.json()
     const users = data

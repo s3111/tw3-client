@@ -6,7 +6,7 @@ import React from "react";
 
 export default function EntitiesBar({entities,selectedEntityName}){
     return(
-        <Container className="m-1 mt-3">
+        <div className="mt-3" style={{maxWidth: "700px"}}>
             <div className="p-2 font-weight-bold d-inline-block">Entities: </div>
             <Card
                 key={'All'}
@@ -32,6 +32,6 @@ export default function EntitiesBar({entities,selectedEntityName}){
                         </Link>
                     </Card>
             )}
-        </Container>
+        </div>
    )
 }

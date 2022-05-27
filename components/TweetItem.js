@@ -58,13 +58,13 @@ export default function TweetItem({tweet,entityName,person}){
     }
     return(
         <Row key={i.tw_id}>
-            <Card className={"my-2 p-3"} style={{maxWidth: '700px'}}>
+            <Card className={"my-2 p-3"} >
                 <Col>
                     <Row
                         style={{cursor: 'pointer',}}
                         //onClick={() => selectPerson(i)}
                     >
-                        <Col xs="auto">
+                        <Col xs="auto" className={"px-0"}>
                             <Image style={{borderRadius: '50%'}} width={"48"} height={"48"} alt={name} src={imgSrc}/>
                         </Col>
                         <Col>

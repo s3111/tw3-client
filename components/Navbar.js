@@ -43,7 +43,7 @@ export default function NavbarElement(){
         */
 
         <Navbar bg="primary" variant="dark"  collapseOnSelect expand="sm" >
-            <Container>
+            <Container style={{maxWidth: '700px'}}>
                 <Link href={"/"} passHref>
                     <Navbar.Brand>
                         <Image src="/heart-.webp" width="30" height="27" className="d-inline-block align-top" alt={mainTitle} />

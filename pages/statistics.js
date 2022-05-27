@@ -17,24 +17,22 @@ const Stat = ({stat}) => {
     return (
         <MainContainer>
             <HeadBlock description={description} image={image} title={title}/>
-            <h1>{h1}</h1>
-            <Container>
-                <div>
-                    <div>Persons: {stat.persons ? stat.persons : 0}</div>
-                    <div>Tweets: {stat.tweets ? stat.tweets : 0}</div>
-                    <div>Entities: {stat.entities ? stat.entities : 0}</div>
-                    {
-                        /*
-                    <Chart
-                        chartType="ScatterChart"
-                        data={[["Age", "Weight"], [4, 5.5], [8, 12]]}
-                        width="100%"
-                        height="400px"
-                        legendToggle
-                    />
-                         */
-                    }
-                </div>
+            <Container style={{maxWidth: '700px'}}>
+                <h1>{h1}</h1>
+                <div>Persons: {stat.persons ? stat.persons : 0}</div>
+                <div>Tweets: {stat.tweets ? stat.tweets : 0}</div>
+                <div>Entities: {stat.entities ? stat.entities : 0}</div>
+                {
+                    /*
+                <Chart
+                    chartType="ScatterChart"
+                    data={[["Age", "Weight"], [4, 5.5], [8, 12]]}
+                    width="100%"
+                    height="400px"
+                    legendToggle
+                />
+                     */
+                }
             </Container>
         </MainContainer>
     );

@@ -9,14 +9,12 @@ export default function PersonListItem({user}){
             <Link href={`/person/${user.screen_name}`}>
                 <a>
                     <Row>
-                        <Col xs="auto">
+                        <Col xs="auto" className={"px-1"}>
                             <Image width={"48"} height={"48"} alt={user.name} className={styles.personImg} src={user.profile_image_url_https}/>
                         </Col>
-                        <Col>
+                        <Col className={"px-0"}>
                             <Row>
-                            <span className={styles.personName}>
-                               {user.name}
-                            </span>
+                                <span className={styles.personName}>{user.name}</span>
                             </Row>
                             <Row>
                                 <span className={styles.personScreenName}>@{user.screen_name}</span>

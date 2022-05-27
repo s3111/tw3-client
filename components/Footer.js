@@ -6,11 +6,6 @@ import React from "react";
 export default function FooterElement(){
     return(
         <Container className="mt-5 mb-1">
-            {
-                /*
-
-                 */
-            }
             <Row className="mt-3 justify-content-center">
                 <a href={"/tweets"} style={{width: "auto"}}>Tweets</a>
                 <a href={"/persons"} style={{width: "auto"}}>Persons</a>

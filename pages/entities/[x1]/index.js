@@ -17,7 +17,7 @@ const Entities = ({entities,entitiesTypes}) => {
     }else {
         page = parseInt(x1)
     }
-    let limit = 30
+    let limit = 20
     const pages = Math.ceil(entities.count / limit)
 
     let title = 'Ukraine Tweets'
@@ -28,17 +28,24 @@ const Entities = ({entities,entitiesTypes}) => {
     return (
         <MainContainer>
             <HeadBlock description={description} image={image} title={title}/>
-            <h1>{h1}</h1>
-            <EntitiesTypesBar types={entitiesTypes} selectedEntityName={"All"}/>
-            <PaginationBar base={
-                entityType
-                    ? `/entities/${entityType}`
-                    : "/entities"
-            } page={page} pages={pages}/>
-            <Container>
-                {entities.rows.map(entity =>
-                     <EntityItem entity = {entity} key={entity.id}/>
-                )}
+            <Container style={{maxWidth: '700px'}}>
+                <h1>{h1}</h1>
+                <EntitiesTypesBar types={entitiesTypes} selectedEntityName={"All"}/>
+                <PaginationBar base={
+                    entityType
+                        ? `/entities/${entityType}`
+                        : "/entities"
+                } page={page} pages={pages}/>
+                <div>
+                    {entities.rows.map(entity =>
+                        <EntityItem entity = {entity} key={entity.id}/>
+                    )}
+                </div>
+                <PaginationBar base={
+                    entityType
+                        ? `/entities/${entityType}`
+                        : "/entities"
+                } page={page} pages={pages}/>
             </Container>
         </MainContainer>
     );
@@ -51,7 +58,7 @@ export async function getServerSideProps({params}){
     //let limit = params.limit ?? 20
     //console.log(params)
     let page = 1
-    let limit = 30
+    let limit = 20
     let name = 'All'
 
     if (params.x1 != parseInt(params.x1)){

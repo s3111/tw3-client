@@ -10,7 +10,7 @@ const Tweets = ({entities,tweets}) => {
     const {query} = useRouter()
     let page = parseInt(query.x2) || 1
     let entityName = query.x1 || 'All';
-    let limit = 10
+    let limit = 5
 
     const pages = Math.ceil(tweets.count / limit)
 
@@ -22,13 +22,16 @@ const Tweets = ({entities,tweets}) => {
     return (
         <MainContainer>
             <HeadBlock description={description} image={image} title={title}/>
-            <h1>{h1}</h1>
-            <EntitiesBar entities={entities} selectedEntityName={entityName}/>
-            <PaginationBar base={`/tweets/${entityName}`} page={page} pages={pages}/>
-            <Container>
-                {tweets.rows.map(tweet =>
-                    <TweetItem tweet = {tweet} key={tweet.tw_id} entityName={entityName}/>
-                )}
+            <Container style={{maxWidth: '700px'}}>
+                <h1>{h1}</h1>
+                <EntitiesBar entities={entities} selectedEntityName={entityName}/>
+                <PaginationBar base={`/tweets/${entityName}`} page={page} pages={pages}/>
+                <div>
+                    {tweets.rows.map(tweet =>
+                        <TweetItem tweet = {tweet} key={tweet.tw_id} entityName={entityName}/>
+                    )}
+                </div>
+                <PaginationBar base={`/tweets/${entityName}`} page={page} pages={pages}/>
             </Container>
         </MainContainer>
     );
@@ -43,7 +46,7 @@ export async function getServerSideProps({params}){
     page = parseInt(params.x2)
 
     console.log(params)
-    let limit = 10
+    let limit = 5
 
     const ent = await fetch(process.env.API_URL +`/entity/?searchType=Bar`)
     const tw = await fetch(process.env.API_URL +`/tweet/?searchType=Entity&entity=${entityName}&page=${page}&limit=${limit}`)
