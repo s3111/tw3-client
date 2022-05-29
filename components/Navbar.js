@@ -39,10 +39,10 @@ export default function NavbarElement(){
                                   style={wlp.includes(TWEETS_ROUTE) ? {cursor:'pointer',color: '#fff'} : {cursor:'pointer',color: '#eee'}}
                         >Tweets</Nav.Link>
                          <Navbar.Toggle className="ml-auto" aria-controls="responsive-navbar-nav" />
-
+<Navbar bg="primary" variant="dark"  collapseOnSelect expand="sm" >
         */
 
-        <Navbar bg="primary" variant="dark"  collapseOnSelect expand="sm" >
+        <Navbar bg="primary" variant="dark"  collapseOnSelect  >
             <Container style={{maxWidth: '700px'}}>
                 <Link href={"/"} passHref>
                     <Navbar.Brand>

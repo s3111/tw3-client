@@ -1,0 +1,46 @@
+form.persons {
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.persons label {
+    color: #3b3b3b;
+    margin-left: 10px;
+}
+
+.persons input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    box-sizing: border-box;
+}
+
+.persons input:focus {
+    outline: none;
+    border-color: #0070f3;
+}
+
+.persons button {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 0.25rem;
+    box-sizing: border-box;
+    margin-bottom: 2.5rem;
+    background-color: #0070f3;
+    color: #fff;
+    cursor: pointer;
+}
+
+.persons button:hover {
+    background-color: #0060e9;
+}
+
+.persons .container {
+    min-height: 100vh;
+    padding: 0 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}

@@ -9,6 +9,10 @@ a.linkPerson{
 .personName {
     font-weight: bold;
     text-decoration: none;
+    text-overflow: clip;
+    white-space: nowrap; /* Запрещаем перенос строк */
+    overflow: hidden; /* Обрезаем все, что не помещается в область */
+
 }
 .personImg {
     border-radius: 50%;
@@ -16,4 +20,16 @@ a.linkPerson{
 .personScreenName {
     font-size: 0.875rem;
     color: grey;
+    text-overflow: ellipsis;
+    white-space: nowrap; /* Запрещаем перенос строк */
+    overflow: hidden; /* Обрезаем все, что не помещается в область */
+
+}
+.overFlow {
+    text-overflow: ellipsis;
+    white-space: nowrap; /* Запрещаем перенос строк */
+    overflow: hidden; /* Обрезаем все, что не помещается в область */
+}
+.numbers {
+    text-align: right;
 }
