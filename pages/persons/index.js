@@ -1,28 +1,35 @@
 //import {useEffect, useState} from "react"
-import React, {useState} from "react"
+import React from "react"
 import {useRouter} from "next/router";
-import Link from "next/link";
+//import Link from "next/link";
 import MainContainer from "../../components/MainContainer";
-import {Card, Row, Col, Container} from "react-bootstrap";
+import {Row, Col, Container, ProgressBar, OverlayTrigger, Tooltip} from "react-bootstrap";
 import PersonListItem from "../../components/PersonListItem";
 import PaginationBar from "../../components/PaginationBar";
 import HeadBlock from "../../components/HeadBlock";
 import PersonSearchForm from "../../components/PersonSearchForm";
 
+
 const Persons = ({users}) => {
     const {query} = useRouter()
     let page = 1
     let limit = 10
-    let order = query.order || 'statusesCapt'
+    let order = query.order || 'followers'
     let verified = query.verified
     //const [verified, setVerified] = useState(query.verified)
 
     const pages = Math.ceil(users.count / limit)
 
-    let title = 'Ukraine Tweets'
+    let title = 'Persons - Ukraine Tweets'
     let h1 = 'Persons - Ukraine Tweets'
     let description = 'Twitter persons list with count tweets about Ukraine'
     let image = '/ukraine-unity.jpeg'
+
+    if(verified === '1'){
+        title = 'Verified persons - Ukraine Tweets'
+        h1 = 'Persons - Ukraine Tweets'
+        description = 'Persons list verified by Twitter with count tweets about Ukraine'
+    }
 
     const formatter = (num) => {
         let res = ''
@@ -31,6 +38,13 @@ const Persons = ({users}) => {
         else if(Math.abs(num) > 999) res = Math.sign(num)*((Math.abs(num)/1000).toFixed(1)) + 'k'
         else res = Math.sign(num)*Math.abs(num)
         return res
+    }
+    const personEmotion = (i) => {
+        if(i > 0.6)       return  (<span>&#x1F604;</span>)
+        else if(i > 0.2)  return  (<span>&#x1F642;</span>)
+        else if(i > -0.2) return  (<span>&#x1F610;</span>)
+        else if(i > -0.6) return  (<span>&#x1F641;</span>)
+        else              return  (<span>&#x1F621;</span>)
     }
 
     return (
@@ -41,31 +55,6 @@ const Persons = ({users}) => {
                 <PersonSearchForm order={order} verified={verified}/>
                 <PaginationBar base={"/persons"} page={page} pages={pages} query={query}/>
                 <div>
-                    <Row>
-                        <Col xs={6}>
-                            Person
-                        </Col>
-                        <Col xs={6}>
-                            <Row>
-                                <Col className={"font-weight-bold"}>
-                                    followers
-                                </Col>
-                                <Col>
-                                    friends
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col>
-                                    statuses
-                                </Col>
-                                <Col>
-                                    UA statuses
-                                </Col>
-                            </Row>
-
-                        </Col>
-
-                    </Row>
                     {users.rows.map(user =>
                         <Row key={user.tw_id} className={"my-3"}>
                             <Col xs={6}>
@@ -77,13 +66,78 @@ const Persons = ({users}) => {
                                         className={"text-right"}
                                         style={{textAlign: 'right'}}
                                     >
-                                        {user.average_sentiment}
+                                        {personEmotion(user.average_sentiment)}
                                     </Col>
                                     <Col>
-s
+                                        <OverlayTrigger
+                                            key={`overlay-${user.tw_id}`}
+                                            placement={'top'}
+                                            overlay={
+                                                <Tooltip id={`tooltip-${user.tw_id}`}>
+                                                    <strong>{user.screen_name}</strong><br/>
+                                                    Followers: {formatter(user.followers_count)}<br/>
+                                                    Friends: {formatter(user.friends_count)}<br/>
+                                                    Statuses: {formatter(user.statuses_count)}<br/>
+                                                    UA Statuses: {formatter(user.statuses_capt_count)}<br/>
+                                                    Sentiment: {user.average_sentiment.toFixed(2)}<br/>
+                                                </Tooltip>
+                                            }
+                                        >
+                                            <div>
+                                                <ProgressBar
+                                                    now={user.followers_count/users.stat.maxFollowers*100}
+                                                    variant={'primary'}
+                                                    style={{height: '5px'}}
+                                                />
+                                                <ProgressBar
+                                                    now={user.friends_count/users.stat.maxFriends*100}
+                                                    variant={'warning'}
+                                                    style={{height: '5px'}}
+                                                />
+                                                <ProgressBar
+                                                    now={user.statuses_count/users.stat.maxStatuses*100}
+                                                    variant={'info'}
+                                                    style={{height: '5px'}}
+                                                />
+                                                <ProgressBar
+                                                    now={user.statuses_capt_count/users.stat.maxStatusesCapt*100}
+                                                    variant={'success'}
+                                                    style={{height: '5px'}}
+                                                />
+
+                                            </div>
+                                        </OverlayTrigger>
                                     </Col>
                                 </Row>
-                                <Row>
+                            </Col>
+                        </Row>
+                    )}
+                </div>
+                <PaginationBar base={"/persons"} page={page} pages={pages} query={query}/>
+            </Container>
+        </MainContainer>
+    );
+};
+
+export default Persons;
+
+export async function getServerSideProps({params, query}){
+    console.log(params, query)
+    let order = query.order ?? 'default'
+    let verified = query.verified
+    let page = 1
+    let limit = 10
+    const response = await fetch(process.env.API_URL +`/person/?searchType=List&verified=${verified}&order=${order}&page=${page}&limit=${limit}`)
+    const data = await response.json()
+    const users = data
+    return{
+        props: {users}
+    }
+}
+
+{
+    /*
+                                    <Row>
                                     <Col
                                         className={"text-right"}
                                         style={{textAlign: 'right'}}
@@ -111,28 +165,48 @@ s
                                         {formatter(user.statuses_capt_count)}
                                     </Col>
                                 </Row>
-                            </Col>
-                        </Row>
-                    )}
-                </div>
-                <PaginationBar base={"/persons"} page={page} pages={pages} query={query}/>
-            </Container>
-        </MainContainer>
-    );
-};
 
-export default Persons;
 
-export async function getServerSideProps({params, query}){
-    console.log(params, query)
-    let order = query.order ?? 'default'
-    let verified = query.verified
-    let page = 1
-    let limit = 10
-    const response = await fetch(process.env.API_URL +`/person/?searchType=List&verified=${verified}&order=${order}&page=${page}&limit=${limit}`)
-    const data = await response.json()
-    const users = data
-    return{
-        props: {users}
-    }
+
+                        <Row>
+<Col xs={6}>
+Person
+
+</Col>
+<Col xs={6}>
+<Row>
+<Col className={"font-weight-bold"}>
+followers
+</Col>
+<Col>
+friends
+</Col>
+</Row>
+<Row>
+<Col>
+statuses
+</Col>
+<Col>
+UA statuses
+</Col>
+</Row>
+
+</Col>
+
+</Row>
+
+{user.average_sentiment.toFixed(2)}
+                                                <ProgressBar
+            now={user.average_sentiment}
+            max={1}
+            min={-1}
+            variant={
+                user.average_sentiment > 0
+                    ? 'success'
+                    : 'danger'
+            }
+            style={{height: '5px'}}
+        />
+
+     */
 }

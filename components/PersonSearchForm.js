@@ -1,8 +1,7 @@
 import styles from "../styles/PersonSearchForm.module.css"
-import {Card, Row, Pagination, Container, Col} from "react-bootstrap";
+import {Card, Row, Col} from "react-bootstrap";
 import React, {useState} from "react";
 import { useRouter } from 'next/router'
-
 
 export default function PersonSearchForm({order,verified}){
     const router = useRouter()
@@ -26,86 +25,86 @@ export default function PersonSearchForm({order,verified}){
         console.log('set', newOrder )
     }
 
-
-
     return(
-        <form action="/persons" method="get" className={styles.persons} onSubmit={handleSubmit}>
-            <Row>
-                <Col>
-                    <label>
-                        <input
-                            type="checkbox"
-                            onChange={handleChangeVerified}
-                            name={'verified'}
-                            checked={newVer}
-                            label={'verified'}
-                        /> only verified
-                    </label>
-                </Col>
-            </Row>
-            <Row>
-                <Col> Order by:
-                    <label>
-                        <input
-                            type="radio"
-                            id="orderFollowers"
-                            onChange={handleChangeOrder}
-                            name="order"
-                            value={"followers"}
-                            checked={newOrder === 'followers'}
-                        /> followers
-                    </label>
-                    <label>
-                        <input
-                            type="radio"
-                            id="orderStatuses"
-                            onChange={handleChangeOrder}
-                            name="order"
-                            value={"statuses"}
-                            checked={newOrder === 'statuses'}
-                        /> statuses
-                    </label>
-                    <label>
-                        <input
-                            type="radio"
-                            id="orderFriends"
-                            onChange={handleChangeOrder}
-                            name="order"
-                            value={"friends"}
-                            checked={newOrder === 'friends'}
-                        /> friends
-                    </label>
-                    <label>
-                        <input
-                            type="radio"
-                            id="orderStatusesCapt"
-                            onChange={handleChangeOrder}
-                            name="order"
-                            value={"statusesCapt"}
-                            checked={newOrder === 'statusesCapt'}
-                        /> statuses UA
-                    </label>
+        <Card>
+            <form action="/persons" method="get" className={styles.persons} onSubmit={handleSubmit}>
+                <Row>
+                    <Col>
+                        <label>
+                            <input
+                                type="checkbox"
+                                onChange={handleChangeVerified}
+                                name={'verified'}
+                                checked={newVer}
+                                label={'verified'}
+                            /> only verified
+                        </label>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col> Order by:
+                        <label className={styles.followers}>
+                            <input
+                                type="radio"
+                                id="orderFollowers"
+                                onChange={handleChangeOrder}
+                                name="order"
+                                value={"followers"}
+                                checked={newOrder === 'followers'}
+                            /> followers
+                        </label>
+                        <label className={styles.friends}>
+                            <input
+                                type="radio"
+                                id="orderFriends"
+                                onChange={handleChangeOrder}
+                                name="order"
+                                value={"friends"}
+                                checked={newOrder === 'friends'}
+                            /> friends
+                        </label>
+                        <label className={styles.statuses}>
+                            <input
+                                type="radio"
+                                id="orderStatuses"
+                                onChange={handleChangeOrder}
+                                name="order"
+                                value={"statuses"}
+                                checked={newOrder === 'statuses'}
+                            /> statuses
+                        </label>
+                        <label className={styles.statusesUA}>
+                            <input
+                                type="radio"
+                                id="orderStatusesCapt"
+                                onChange={handleChangeOrder}
+                                name="order"
+                                value={"statusesCapt"}
+                                checked={newOrder === 'statusesCapt'}
+                            /> statuses UA
+                        </label>
 
 
-                </Col>
-            </Row>
+                    </Col>
+                </Row>
 
-            {
-                /*
-            <input
-                type="checkbox"
-                id="verified"
-                name="verified"
-                checked={verified}
-                onChange={changeFilter}
-            />
+                {
+                    /*
+                <input
+                    type="checkbox"
+                    id="verified"
+                    name="verified"
+                    checked={verified}
+                    onChange={changeFilter}
+                />
 
-                 */
-            }
+                     */
+                }
 
 
 
-            <button type="submit">Show</button>
-        </form>
-        )
+                <button type="submit">Show</button>
+            </form>
+        </Card>
+    )
 }

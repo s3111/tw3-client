@@ -25,6 +25,18 @@ const Tweets = ({entities,tweets}) => {
     let description = 'Last tweets about Ukraine. List tweets Ukraine.'
     let image = '/ukraine-unity.jpeg'
 
+    if(entityName && entityName !== 'All'){
+        title = entityName +' - Ukraine Tweets'
+        h1 = entityName +' - Ukraine Tweets'
+        description = `Last tweets about ${entityName} and Ukraine. List tweets Ukraine.`
+        image = '/ukraine-unity.jpeg'
+    } else if(page && page !== 1){
+        let title = 'Ukraine Tweets - page ' + page
+        let h1 = 'Ukraine Tweets'
+        let description = 'Last tweets about Ukraine. List tweets Ukraine page ' + page + '.'
+        let image = '/ukraine-unity.jpeg'
+    }
+
     return (
         <MainContainer>
             <HeadBlock description={description} image={image} title={title}/>

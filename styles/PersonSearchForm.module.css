@@ -8,6 +8,22 @@ form.persons {
     margin-left: 10px;
 }
 
+label.followers{
+    border-bottom: 2px solid #0060e9;
+}
+
+label.friends{
+    border-bottom: 2px solid orange;
+}
+label.statuses{
+    border-bottom: 2px solid cornflowerblue;
+}
+label.statusesUA{
+    border-bottom: 2px solid green;
+}
+
+
+
 .persons input {
     padding: 0.5rem;
     border: 1px solid #ccc;
