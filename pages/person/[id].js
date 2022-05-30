@@ -65,6 +65,9 @@ export default function User({person,tweets}){
                                     <Col>
                                         {p.statuses_count ? 'Statuses: ' + p.statuses_count : null}
                                     </Col>
+                                    <Col>
+                                        {tweets.count ? 'UA Statuses: ' + tweets.count : null}
+                                    </Col>
                                 </Row>
                                 <Row className={"mt-2"}>
                                     <Col>
@@ -72,6 +75,9 @@ export default function User({person,tweets}){
                                     </Col>
                                     <Col>
                                         {p.favourites_count ? 'Favourites: ' + p.favourites_count : null}
+                                    </Col>
+                                    <Col>
+                                        {p.average_sentiment ? 'Sentiment: ' + p.average_sentiment : null}
                                     </Col>
                                 </Row>
                                 <Row>
@@ -89,10 +95,10 @@ export default function User({person,tweets}){
                             :
                             <div>
                                 <h1 style={{fontSize: '18px'}}>{h1}</h1>
-                                Looks like we have no information about {person}<br />
+                                Looks like we have no information about {query.id}<br />
                                 You can try open it in&nbsp;
                                 <a
-                                    href={"https://twitter.com/" + person}
+                                    href={"https://twitter.com/" + query.id}
                                     target={"_blank"}
                                 >Twitter</a>
                             </div>
@@ -108,9 +114,12 @@ export default function User({person,tweets}){
                     </Col>
                 </Row>
                 <div>
-                    {tweets.rows.map(tweet =>
-                        <TweetItem tweet = {tweet} key={tweet.tw_id} person={person}/>
-                    )}
+                    {tweets.rows?
+                        tweets.rows.map(tweet =>
+                            <TweetItem tweet = {tweet} key={tweet.tw_id} person={person}/>
+                        )
+                        : <span>Looks like we do not have any tweets from this person yet.</span>
+                    }
                 </div>
             </Container>
         </MainContainer>

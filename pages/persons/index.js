@@ -77,6 +77,17 @@ const Persons = ({users}) => {
                                         className={"text-right"}
                                         style={{textAlign: 'right'}}
                                     >
+                                        {user.average_sentiment}
+                                    </Col>
+                                    <Col>
+s
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col
+                                        className={"text-right"}
+                                        style={{textAlign: 'right'}}
+                                    >
                                         {formatter(user.followers_count)}
                                     </Col>
                                     <Col
@@ -85,6 +96,7 @@ const Persons = ({users}) => {
                                     >
                                         {formatter(user.friends_count)}
                                     </Col>
+
                                 </Row>
                                 <Row>
                                     <Col

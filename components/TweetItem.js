@@ -51,7 +51,7 @@ export default function TweetItem({tweet,entityName,person}){
 
         replacePattern3 = /#([a-zA-Z0-9\-\_\.]+)+/gim;
         replacedText = replacedText.replace(replacePattern3, '<a href="/tweets/$1">#$1</a>');
-        console.log({__html: replacedText})
+        //console.log({__html: replacedText})
         return (
             <p dangerouslySetInnerHTML={{__html: replacedText}}></p>
         );
@@ -78,6 +78,10 @@ export default function TweetItem({tweet,entityName,person}){
                                         <time className={styles.postTime} title={`Time Posted: ${new Date(i.tweet_date).toUTCString()}`} dateTime={new Date(i.tweet_date).toISOString()}>
                                             {timeAgoTweet(i.tweet_date)}
                                         </time>
+                                        <span>&nbsp;·&nbsp;</span>
+                                        <span className={styles.postTime}>
+                                            {i.sentiment}
+                                        </span>
                                     </Col>
                                 </Row>
                             </Col>
