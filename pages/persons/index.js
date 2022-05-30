@@ -23,7 +23,7 @@ const Persons = ({users}) => {
     let title = 'Persons - Ukraine Tweets'
     let h1 = 'Persons - Ukraine Tweets'
     let description = 'Twitter persons list with count tweets about Ukraine'
-    let image = '/ukraine-unity.jpeg'
+    let image = 'https://ukraine.web2ua.com/ukraine-unity.jpeg'
 
     if(verified === '1'){
         title = 'Verified persons - Ukraine Tweets'
