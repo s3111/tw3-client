@@ -3,7 +3,7 @@ import {Pagination} from "react-bootstrap";
 import React from "react";
 
 export default function PaginationBar({base,page,pages,query}){
-    console.log('pag query',query)
+    //console.log('pag query',query)
     let queryAdd = ''
 
     if(query) {
