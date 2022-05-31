@@ -22,6 +22,7 @@ const Stat = ({stat}) => {
                 <div>Persons: {stat.persons ? stat.persons : 0}</div>
                 <div>Tweets: {stat.tweets ? stat.tweets : 0}</div>
                 <div>Entities: {stat.entities ? stat.entities : 0}</div>
+                <div>Tweets entities: {stat.tweetEntities ? stat.tweetEntities : 0}</div>
                 {
                     /*
                 <Chart
