@@ -7,8 +7,15 @@ export default function PaginationBar({base,page,pages,query}){
     let queryAdd = ''
 
     if(query) {
-        delete query.page
-        if(Object.keys(query).length) queryAdd = '/?' + new URLSearchParams(query).toString()
+        //delete query.page
+        if(Object.keys(query).length){
+            let q = {}
+            Object.keys(query).map(k => {
+                if(k !== 'page') q[k] = query[k]
+            })
+            if(Object.keys(q).length)
+            queryAdd = '/?' + new URLSearchParams(q).toString()
+        }
     }
 
     return(
