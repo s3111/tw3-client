@@ -1,9 +1,7 @@
-
 import React from "react"
-import {useRouter} from "next/router";
-
+//import {useRouter} from "next/router";
 import MainContainer from "../components/MainContainer";
-import {Card, Row, Col, Container} from "react-bootstrap";
+import {Container} from "react-bootstrap";
 import HeadBlock from "../components/HeadBlock";
 const Stat = ({stat}) => {
     console.log(stat)

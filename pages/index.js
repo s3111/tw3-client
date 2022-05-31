@@ -1,5 +1,5 @@
-import Link from "next/link";
-import A from "../components/A";
+//import Link from "next/link";
+//import A from "../components/A";
 import MainContainer from "../components/MainContainer";
 import HeadBlock from "../components/HeadBlock";
 import React from "react";
