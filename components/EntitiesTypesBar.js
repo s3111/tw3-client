@@ -6,8 +6,13 @@ import React from "react";
 
 export default function EntitiesTypesBar({types,selectedTypeName}){
     return(
-        <Container className="m-1 mt-3">
+        <div className="mt-3" style={{maxWidth: "700px"}}>
+            {
+                /*
             <div className="p-2 font-weight-bold d-inline-block">Types: </div>
+                 */
+            }
+
             <Card
                 key={'All'}
                 className="p-2 d-inline-block"
@@ -27,11 +32,11 @@ export default function EntitiesTypesBar({types,selectedTypeName}){
                     style={{cursor: 'pointer'}}
                     border={i.name === selectedTypeName ? 'primary':'light'}
                 >
-                    <Link  href={`/entities/${i.name}`}>
+                    <Link  href={`/entities/${i.type}`}>
                         {i.name}
                     </Link>
                 </Card>
             )}
-        </Container>
+        </div>
     )
 }

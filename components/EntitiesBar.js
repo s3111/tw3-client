@@ -7,7 +7,12 @@ import React from "react";
 export default function EntitiesBar({entities,selectedEntityName}){
     return(
         <div className="mt-3" style={{maxWidth: "700px"}}>
+            {
+                /*
             <div className="p-2 font-weight-bold d-inline-block">Entities: </div>
+                 */
+            }
+
             <Card
                 key={'All'}
                 className="p-2 d-inline-block"
@@ -17,7 +22,7 @@ export default function EntitiesBar({entities,selectedEntityName}){
                 border={selectedEntityName === 'All' ? 'primary':'light'}
             >
                 <Link  href={`/tweets`}>
-                    All
+                    Ukraine
                 </Link>
             </Card>
             {entities.map(i =>

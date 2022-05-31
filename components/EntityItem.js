@@ -14,7 +14,14 @@ export default function EntityItem({entity}){
                     </a>
                 </Link>
             </Col>
-            <Col xs={"auto"}>
+            <Col>
+                <Link href={`/entities/${entity.type}`}>
+                    <a>
+                        {entity.type}
+                    </a>
+                </Link>
+            </Col>
+            <Col xs={"2"}>
                 {entity.count}
             </Col>
         </Row>
