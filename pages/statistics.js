@@ -23,8 +23,10 @@ const Stat = ({stat}) => {
                 <div>Entities: {stat.entities ? stat.entities : 0}</div>
                 <div>Tweets entities: {stat.tweetEntities ? stat.tweetEntities : 0}</div>
                 <Chart
-                    chartType="ScatterChart"
-                    data={[["Age", "Weight"], [4, 5.5], [8, 12]]}
+                    //chartType="ScatterChart"
+                    //chartType="AreaChart"
+                    chartType="Bar"
+                    data={[["Day", "Count"], ...stat.timeFrames.tweets]}
                     width="100%"
                     height="400px"
                     legendToggle
