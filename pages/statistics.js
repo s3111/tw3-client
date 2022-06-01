@@ -3,6 +3,7 @@ import React from "react"
 import MainContainer from "../components/MainContainer";
 import {Container} from "react-bootstrap";
 import HeadBlock from "../components/HeadBlock";
+import Chart from "react-google-charts";
 const Stat = ({stat}) => {
     console.log(stat)
     console.log(stat.tweets)
@@ -21,8 +22,6 @@ const Stat = ({stat}) => {
                 <div>Tweets: {stat.tweets ? stat.tweets : 0}</div>
                 <div>Entities: {stat.entities ? stat.entities : 0}</div>
                 <div>Tweets entities: {stat.tweetEntities ? stat.tweetEntities : 0}</div>
-                {
-                    /*
                 <Chart
                     chartType="ScatterChart"
                     data={[["Age", "Weight"], [4, 5.5], [8, 12]]}
@@ -30,6 +29,9 @@ const Stat = ({stat}) => {
                     height="400px"
                     legendToggle
                 />
+                {
+                    /*
+
                      */
                 }
             </Container>
