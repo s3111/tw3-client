@@ -4,7 +4,9 @@ import {Card, Row, Pagination, Container} from "react-bootstrap";
 import React from "react";
 
 
-export default function EntitiesBar({entities,selectedEntityName}){
+export default function EntitiesBar({entities,selectedEntityName,verified}){
+    let queryAdd = ''
+    if(verified && parseInt(verified) === 1) queryAdd = '/?verified=1'
     return(
         <div className="mt-3" style={{maxWidth: "700px"}}>
             {
@@ -21,7 +23,7 @@ export default function EntitiesBar({entities,selectedEntityName}){
                 //onClick={() => selectEntity({})}
                 border={selectedEntityName === 'All' ? 'primary':'light'}
             >
-                <Link  href={`/tweets`}>
+                <Link  href={`/tweets${queryAdd}`}>
                     Ukraine
                 </Link>
             </Card>
@@ -32,7 +34,7 @@ export default function EntitiesBar({entities,selectedEntityName}){
                         style={{cursor: 'pointer'}}
                         border={i.name === selectedEntityName ? 'primary':'light'}
                     >
-                        <Link  href={`/tweets/${i.name}`}>
+                        <Link  href={`/tweets/${i.name}${queryAdd}`}>
                             {i.name}
                         </Link>
                     </Card>

@@ -6,10 +6,12 @@ import PaginationBar from "../../../components/PaginationBar";
 import HeadBlock from "../../../components/HeadBlock";
 import EntitiesBar from "../../../components/EntitiesBar";
 import TweetItem from "../../../components/TweetItem";
+import TweetsSearchForm from "../../../components/TweeetsSearchForm";
 const Tweets = ({entities,tweets}) => {
     const {query} = useRouter()
     let page = parseInt(query.x2) || 1
     let entityName = query.x1 || 'All';
+    let verified = query.verified
     let limit = 5
 
     const pages = Math.ceil(tweets.count / limit)
@@ -36,14 +38,15 @@ const Tweets = ({entities,tweets}) => {
             <HeadBlock description={description} image={image} title={title}/>
             <Container style={{maxWidth: '700px'}}>
                 <h1>{h1}</h1>
-                <EntitiesBar entities={entities} selectedEntityName={entityName}/>
-                <PaginationBar base={`/tweets/${entityName}`} page={page} pages={pages}/>
+                <EntitiesBar entities={entities} selectedEntityName={entityName} verified={verified}/>
+                <TweetsSearchForm verified={verified}/>
+                <PaginationBar base={`/tweets/${entityName}`} page={page} pages={pages} query={query}/>
                 <div>
                     {tweets.rows.map(tweet =>
                         <TweetItem tweet = {tweet} key={tweet.tw_id} entityName={entityName}/>
                     )}
                 </div>
-                <PaginationBar base={`/tweets/${entityName}`} page={page} pages={pages}/>
+                <PaginationBar base={`/tweets/${entityName}`} page={page} pages={pages} query={query}/>
             </Container>
         </MainContainer>
     );
@@ -51,9 +54,10 @@ const Tweets = ({entities,tweets}) => {
 
 export default Tweets;
 
-export async function getServerSideProps({params}){
+export async function getServerSideProps({params,query}){
     let entityName = 'All'
     let page = 1
+    let verified = query.verified
     entityName = params.x1
     page = parseInt(params.x2)
 
@@ -61,7 +65,7 @@ export async function getServerSideProps({params}){
     let limit = 5
 
     const ent = await fetch(process.env.API_URL +`/entity/?searchType=Bar`)
-    const tw = await fetch(process.env.API_URL +`/tweet/?searchType=Entity&entity=${entityName}&page=${page}&limit=${limit}`)
+    const tw = await fetch(process.env.API_URL +`/tweet/?searchType=Entity&entity=${entityName}&verified=${verified}&page=${page}&limit=${limit}`)
     const entities = await ent.json()
     const tweets = await tw.json()
     //const users = data

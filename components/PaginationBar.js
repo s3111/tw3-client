@@ -11,7 +11,15 @@ export default function PaginationBar({base,page,pages,query}){
         if(Object.keys(query).length){
             let q = {}
             Object.keys(query).map(k => {
-                if(k !== 'page') q[k] = query[k]
+                /*
+                k !== 'page' ||
+                    k !== 'x1' ||
+                    k !== 'x2'
+                 */
+                if(
+                    k === 'verified' ||
+                    k === 'order'
+                ) q[k] = query[k]
             })
             if(Object.keys(q).length)
             queryAdd = '/?' + new URLSearchParams(q).toString()

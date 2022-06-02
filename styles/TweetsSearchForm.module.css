@@ -1,0 +1,62 @@
+form.tweets {
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.tweets label {
+    color: #3b3b3b;
+    margin-left: 10px;
+}
+
+label.followers{
+    border-bottom: 2px solid #0060e9;
+}
+
+label.friends{
+    border-bottom: 2px solid orange;
+}
+label.statuses{
+    border-bottom: 2px solid cornflowerblue;
+}
+label.statusesUA{
+    border-bottom: 2px solid green;
+}
+
+
+
+.tweets input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    box-sizing: border-box;
+}
+
+.tweets input:focus {
+    outline: none;
+    border-color: #0070f3;
+}
+
+.tweets button {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 0.25rem;
+    box-sizing: border-box;
+    margin-bottom: 2.5rem;
+    background-color: #0070f3;
+    color: #fff;
+    cursor: pointer;
+}
+
+.tweets button:hover {
+    background-color: #0060e9;
+}
+
+.tweets .container {
+    min-height: 100vh;
+    padding: 0 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}

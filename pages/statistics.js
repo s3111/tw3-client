@@ -26,7 +26,7 @@ const Stat = ({stat}) => {
                     //chartType="ScatterChart"
                     //chartType="AreaChart"
                     chartType="Bar"
-                    data={[["Day", "Count"], ...stat.timeFrames.tweets]}
+                    data={[["Day", "Tweets"], ...stat.timeFrames.tweets]}
                     width="100%"
                     height="400px"
                     legendToggle
