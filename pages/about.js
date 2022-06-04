@@ -26,7 +26,7 @@ const Index = () => {
                             <ul>
                                 <li>grouping and clustering of events in the world;</li>
                                 <li>automatic ranking of world political figures;</li>
-                                <li>search and detection of political bots on Twitter with the goal of influencing the global political situation.</li>
+                                <li>search and detection of political bots on Twitter that are trying to influence the world political situation.</li>
                             </ul>
                             <p>
                                 The project is new and under development. Not all functions may work correctly.
@@ -36,7 +36,7 @@ const Index = () => {
                                 Frontend: NodeJs, NextJS, React Backend: mySQL, ML, NLP.
                             </p>
                             <p>
-                                My <a href={"https://www.linkedin.com/in/sergey-vatulev/"}>Linkedin</a> - if you want to offer me a job :)
+                                My <a href={"https://www.linkedin.com/in/sergey-vatulev/"} target={"_blank"}>Linkedin</a> - if you want to offer me a job :)
                             </p>
                         </div>
                     </div>
