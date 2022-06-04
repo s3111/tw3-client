@@ -3,6 +3,7 @@ import styles from "../styles/TweetItem.module.css"
 import {Col, Row,Card} from "react-bootstrap";
 import Image from "next/image";
 import React from "react";
+import {personEmotion} from "../utils/common"
 
 export default function TweetItem({tweet,entityName,person}){
     let i = tweet
@@ -15,17 +16,26 @@ export default function TweetItem({tweet,entityName,person}){
         let timeAgo = ''
         if(time){
             let s = new Date(time)
-            if(Date.now() - s > 1000*60*60*48){ // 48 hours
-                timeAgo = Math.floor((Date.now() - s)/(1000*60*60*24)) + ' days ago'
-            }
+            let options = []
 
+
+            if(Date.now() - s > 1000*60*60*24){ // > 24 hours
+                options = {  month: 'short', day: 'numeric' };
+                timeAgo = s.toLocaleDateString('en-US', options)
+                //timeAgo = Math.floor((Date.now() - s)/(1000*60*60*24)) + ' days ago'
+            }
+/*
             else if(Date.now() - s > 1000*60*60*24){ // 26 hours
                 timeAgo = 'yesterday'
             }
-
-            else if(Date.now() - s > 1000*60*60*2){ // > 2 hours
-                timeAgo = Math.floor((Date.now() - s)/(1000*60*60)) + ' hrs ago'
+*/
+            else if(Date.now() - s > 1000*60*60*1){ // > 1 hours
+                timeAgo = Math.floor((Date.now() - s)/(1000*60*60)) + ' h'
             }
+            else if(Date.now() - s > 1000*60*1){ // > 1 min
+                timeAgo = Math.floor((Date.now() - s)/(1000*60)) + ' m'
+            }
+
             else timeAgo = 'just now'
         }
         return timeAgo
@@ -80,7 +90,7 @@ export default function TweetItem({tweet,entityName,person}){
                                         </time>
                                         <span>&nbsp;·&nbsp;</span>
                                         <span className={styles.postTime}>
-                                            {i.sentiment}
+                                            {personEmotion(i.sentiment)}
                                         </span>
                                     </Col>
                                 </Row>

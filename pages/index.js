@@ -1,10 +1,7 @@
-//import Link from "next/link";
-//import A from "../components/A";
 import MainContainer from "../components/MainContainer";
 import HeadBlock from "../components/HeadBlock";
 import React from "react";
 import {Container} from "react-bootstrap";
-//import {Button} from "@mui/material";
 
 const Index = () => {
     let title = 'Ukraine Tweets'

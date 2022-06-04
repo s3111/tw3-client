@@ -1,14 +1,12 @@
-//import {useEffect, useState} from "react"
 import React from "react"
 import {useRouter} from "next/router";
-//import Link from "next/link";
 import MainContainer from "../../components/MainContainer";
 import {Row, Col, Container, ProgressBar, OverlayTrigger, Tooltip} from "react-bootstrap";
 import PersonListItem from "../../components/PersonListItem";
 import PaginationBar from "../../components/PaginationBar";
 import HeadBlock from "../../components/HeadBlock";
 import PersonSearchForm from "../../components/PersonSearchForm";
-
+import {personEmotion, formatter} from "../../utils/common"
 
 const Persons = ({users}) => {
     const {query} = useRouter()
@@ -29,22 +27,6 @@ const Persons = ({users}) => {
         title = 'Verified persons - Ukraine Tweets'
         h1 = 'Persons - Ukraine Tweets'
         description = 'Persons list verified by Twitter with count tweets about Ukraine'
-    }
-
-    const formatter = (num) => {
-        let res = ''
-        if(Math.abs(num)    > 999999) res = Math.sign(num)*((Math.abs(num)/1000000).toFixed(1)) + 'M'
-        else if(Math.abs(num)    > 9999) res = Math.sign(num)*((Math.abs(num)/1000).toFixed(0)) + 'k'
-        else if(Math.abs(num) > 999) res = Math.sign(num)*((Math.abs(num)/1000).toFixed(1)) + 'k'
-        else res = Math.sign(num)*Math.abs(num)
-        return res
-    }
-    const personEmotion = (i) => {
-        if(i > 0.6)       return  (<span>&#x1F604;</span>)
-        else if(i > 0.2)  return  (<span>&#x1F642;</span>)
-        else if(i > -0.2) return  (<span>&#x1F610;</span>)
-        else if(i > -0.6) return  (<span>&#x1F641;</span>)
-        else              return  (<span>&#x1F621;</span>)
     }
 
     return (
