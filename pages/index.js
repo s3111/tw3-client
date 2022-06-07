@@ -2,8 +2,9 @@ import MainContainer from "../components/MainContainer";
 import HeadBlock from "../components/HeadBlock";
 import React from "react";
 import {Container} from "react-bootstrap";
+import HomeEntitiesBar from "../components/HomeEntitiesBar";
 
-const Index = () => {
+const Index = ({entities}) => {
     let title = 'Ukraine Tweets'
     let h1 = 'Ukraine Twitter Analytics'
     let description = 'Last tweets about Ukraine. List tweets Ukraine.'
@@ -15,6 +16,7 @@ const Index = () => {
                 <div className="col-lg-8 my-auto mx-auto text-center">
                     <div>
                         <h1 className="mb-5 mt-5">{h1}</h1>
+                        <HomeEntitiesBar entities={entities}/>
                         <div>
                             <p className="mt-3">
                                 Last tweets about Ukraine.
@@ -34,3 +36,11 @@ const Index = () => {
 };
 
 export default Index;
+
+export async function getServerSideProps({params}) {
+    const response = await fetch(process.env.API_URL + `/stat/entities`)
+    const entities = await response.json()
+    return {
+        props: {entities}
+    }
+}
