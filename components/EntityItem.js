@@ -17,12 +17,12 @@ export default function EntityItem({entity}){
             <Col>
                 <Link href={`/entities/${entity.type}`}>
                     <a>
-                        {entity.type}
+                        {entity.typeName}
                     </a>
                 </Link>
             </Col>
             <Col xs={"2"}>
-                {entity.count}
+                        {entity.count}
             </Col>
         </Row>
     )

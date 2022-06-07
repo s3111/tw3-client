@@ -37,6 +37,11 @@ const Entities = ({entities,entitiesTypes}) => {
                         : "/entities"
                 } page={page} pages={pages}/>
                 <div>
+                    <Row>
+                        <Col><b>Entity</b></Col>
+                        <Col><b>Type</b></Col>
+                        <Col xs={"2"}><b>Tweets</b></Col>
+                    </Row>
                     {entities.rows.map(entity =>
                         <EntityItem entity = {entity} key={entity.id}/>
                     )}

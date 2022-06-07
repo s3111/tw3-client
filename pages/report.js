@@ -5,15 +5,14 @@ import {Container} from "react-bootstrap";
 import HeadBlock from "../components/HeadBlock";
 import Chart from "react-google-charts";
 const Stat = ({stat}) => {
-    let title = 'Ukraine Tweets Statistic'
-    let h1 = 'Statistic - Ukraine Tweets'
+    let title = 'Ukraine Tweets Reports'
+    let h1 = 'Reports - Ukraine Tweets'
     let description = 'Twitter persons list with count tweets about Ukraine'
     let image = '/ukraine-unity.jpeg'
+    console.log('stat',stat)
     const options = {
         title: "Tweets per day",
-        //width: 600,
         height: 300,
-        //bar: { groupWidth: "85%" },
         legend: { position: "none" },
     };
 
@@ -22,21 +21,36 @@ const Stat = ({stat}) => {
             <HeadBlock description={description} image={image} title={title}/>
             <Container style={{maxWidth: '700px'}}>
                 <h1>{h1}</h1>
+                {Object.keys(stat.charts).map((t,k) =>
+                    <Chart
+                        key={k}
+                        //className={"mt-2"}
+                        //chartType="ScatterChart"
+                        chartType="AreaChart"
+                        //chartType="Bar"
+                        data={stat.charts[t]}
+                        width="100%"
+                        height="300px"
+                        options={{
+                            title: t,
+                            height: 300,
+                            //legend: { position: "none" },
+                            //vAxis: { maxValue: 2500 },
+                        }}
+                        //legendToggle
+                    />
+                )}
+
+                {
+                    /*
                 <div>Persons: {stat.persons ? stat.persons : 0}</div>
                 <div>Tweets: {stat.tweets ? stat.tweets : 0}</div>
                 <div>Entities: {stat.entities ? stat.entities : 0}</div>
                 <div>Tweets entities: {stat.tweetEntities ? stat.tweetEntities : 0}</div>
-                <Chart
-                    //className={"mt-2"}
-                    //chartType="ScatterChart"
-                    //chartType="AreaChart"
-                    chartType="Bar"
-                    data={[["Day", "Tweets"], ...stat.timeFrames.tweets]}
-                    width="100%"
-                    height="300px"
-                    options={options}
-                    legendToggle
-                />
+
+
+                     */
+                }
             </Container>
         </MainContainer>
     );
@@ -45,7 +59,7 @@ const Stat = ({stat}) => {
 export default Stat;
 
 export async function getServerSideProps({params}){
-    const response = await fetch(process.env.API_URL +`/stat`)
+    const response = await fetch(process.env.API_URL +`/stat/entities`)
     const stat = await response.json()
     return{
         props: {stat}

@@ -6,6 +6,7 @@ import PaginationBar from "../../components/PaginationBar";
 import HeadBlock from "../../components/HeadBlock";
 import EntitiesTypesBar from "../../components/EntitiesTypesBar";
 import EntityItem from "../../components/EntityItem";
+import Link from "next/link";
 
 const Entities = ({entities,entitiesTypes}) => {
     const {query} = useRouter()
@@ -26,6 +27,11 @@ const Entities = ({entities,entitiesTypes}) => {
                 <EntitiesTypesBar types={entitiesTypes} selectedEntityName={"All"}/>
                 <PaginationBar base={"/entities"} page={page} pages={pages}/>
                 <div>
+                    <Row>
+                        <Col><b>Entity</b></Col>
+                        <Col><b>Type</b></Col>
+                        <Col xs={"2"}><b>Tweets</b></Col>
+                    </Row>
                     {entities.rows.map(entity =>
                         <EntityItem entity = {entity} key={entity.id}/>
                     )}

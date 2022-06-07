@@ -33,7 +33,7 @@ const Index = () => {
                             </p>
                             <p>
                                 The following technologies are currently used in the project:
-                                Frontend: NodeJs, NextJS, React Backend: mySQL, ML, NLP.
+                                Frontend: NodeJs, NextJS, React; Backend: mySQL, NodeJs, ML, NLP.
                             </p>
                             <p>
                                 My <a href={"https://www.linkedin.com/in/sergey-vatulev/"} target={"_blank"}>Linkedin</a> - if you want to offer me a job :)
