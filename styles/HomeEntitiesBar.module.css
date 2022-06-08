@@ -1,22 +1,17 @@
-.personName {
-    font-weight: bold;
-    /*
-    font-size: 1.1rem;
-
-    */
-}
-.personImg {
-    border-radius: 50%;
-}
 .persent {
     font-size: 1.4rem;
     color: darkseagreen;
     text-decoration: none !important;
 }
 
-.postTime {
-    font-size: 0.875rem;
-    color: darkgray;
+.type a{
+    font-size: 0.8rem;
+    color: #777777;
+    text-decoration: none !important;
+}
+.entity {
+    text-overflow: clip;
+    white-space: nowrap;
 }
 a.linkPerson{
     text-decoration: none !important;
