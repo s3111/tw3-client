@@ -9,7 +9,8 @@ const Stat = ({stat}) => {
     let title = 'Ukraine Tweets Reports'
     let h1 = 'Reports - Ukraine Tweets'
     let description = 'Twitter persons list with count tweets about Ukraine'
-    let image = '/ukraine-unity.jpeg'
+    //let image = '/ukraine-unity.jpeg'
+    let image = '/Chart1.png'
     console.log('stat', stat)
     const options = {
         title: "Tweets per day",
