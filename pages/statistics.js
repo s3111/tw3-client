@@ -1,9 +1,9 @@
 import React from "react"
-//import {useRouter} from "next/router";
 import MainContainer from "../components/MainContainer";
 import {Container} from "react-bootstrap";
 import HeadBlock from "../components/HeadBlock";
 import Chart from "react-google-charts";
+
 const Stat = ({stat}) => {
     let title = 'Ukraine Tweets Statistic'
     let h1 = 'Statistic - Ukraine Tweets'
@@ -11,10 +11,8 @@ const Stat = ({stat}) => {
     let image = '/ukraine-unity.jpeg'
     const options = {
         title: "Tweets per day",
-        //width: 600,
         height: 300,
-        //bar: { groupWidth: "85%" },
-        legend: { position: "none" },
+        legend: {position: "none"},
     };
 
     return (
@@ -27,9 +25,6 @@ const Stat = ({stat}) => {
                 <div>Entities: {stat.entities ? stat.entities : 0}</div>
                 <div>Tweets entities: {stat.tweetEntities ? stat.tweetEntities : 0}</div>
                 <Chart
-                    //className={"mt-2"}
-                    //chartType="ScatterChart"
-                    //chartType="AreaChart"
                     chartType="Bar"
                     data={[["Day", "Tweets"], ...stat.timeFrames.tweets]}
                     width="100%"
@@ -44,10 +39,10 @@ const Stat = ({stat}) => {
 
 export default Stat;
 
-export async function getServerSideProps({params}){
-    const response = await fetch(process.env.API_URL +`/stat`)
+export async function getServerSideProps({params}) {
+    const response = await fetch(process.env.API_URL + `/stat`)
     const stat = await response.json()
-    return{
+    return {
         props: {stat}
     }
 }

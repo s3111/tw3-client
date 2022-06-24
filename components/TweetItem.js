@@ -1,45 +1,34 @@
 import Link from "next/link";
 import styles from "../styles/TweetItem.module.css"
-import {Col, Row,Card} from "react-bootstrap";
+import {Col, Row, Card} from "react-bootstrap";
 import Image from "next/image";
 import React from "react";
 import {personEmotion} from "../utils/common"
 
-export default function TweetItem({tweet,entityName,person}){
+export default function TweetItem({tweet, entityName, person}) {
     let i = tweet
     let imgSrc = i.profile_image_url_https || person.profile_image_url_https
     let name = i.name || person.name
     let screen_name = i.screen_name || person.screen_name
 
-
-    const timeAgoTweet = (time)=>{
+    const timeAgoTweet = (time) => {
         let timeAgo = ''
-        if(time){
+        if (time) {
             let s = new Date(time)
             let options = []
 
-
-            if(Date.now() - s > 1000*60*60*24){ // > 24 hours
-                options = {  month: 'short', day: 'numeric' };
+            if (Date.now() - s > 1000 * 60 * 60 * 24) { // > 24 hours
+                options = {month: 'short', day: 'numeric'};
                 timeAgo = s.toLocaleDateString('en-US', options)
-                //timeAgo = Math.floor((Date.now() - s)/(1000*60*60*24)) + ' days ago'
-            }
-/*
-            else if(Date.now() - s > 1000*60*60*24){ // 26 hours
-                timeAgo = 'yesterday'
-            }
-*/
-            else if(Date.now() - s > 1000*60*60*1){ // > 1 hours
-                timeAgo = Math.floor((Date.now() - s)/(1000*60*60)) + ' h'
-            }
-            else if(Date.now() - s > 1000*60*1){ // > 1 min
-                timeAgo = Math.floor((Date.now() - s)/(1000*60)) + ' m'
-            }
-
-            else timeAgo = 'just now'
+            } else if (Date.now() - s > 1000 * 60 * 60 * 1) { // > 1 hours
+                timeAgo = Math.floor((Date.now() - s) / (1000 * 60 * 60)) + ' h'
+            } else if (Date.now() - s > 1000 * 60 * 1) { // > 1 min
+                timeAgo = Math.floor((Date.now() - s) / (1000 * 60)) + ' m'
+            } else timeAgo = 'just now'
         }
         return timeAgo
     }
+
     function Linkify(props) {
         const inputText = props.inputText;
         const entity = props.entity;
@@ -48,9 +37,9 @@ export default function TweetItem({tweet,entityName,person}){
         replacePattern4 = / (#?Ukraine)(\W)/gim;
         replacedText = inputText.replace(replacePattern4, ' <span class="text-success">$1</span>$2');
 
-        if(entity && entity !== 'All'){
+        if (entity && entity !== 'All') {
             let replace = "([#,@]?" + entity + ")";
-            let replacePattern5 = new RegExp(replace,"gim");
+            let replacePattern5 = new RegExp(replace, "gim");
             replacedText = replacedText.replace(replacePattern5, '<span class="text-warning">$1</span>');
         }
         replacePattern1 = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
@@ -66,7 +55,8 @@ export default function TweetItem({tweet,entityName,person}){
             <p dangerouslySetInnerHTML={{__html: replacedText}}></p>
         );
     }
-    return(
+
+    return (
         <Card className={"my-2 p-3"} key={i.tw_id}>
             <Row>
                 <Link href={`/person/${screen_name}`}>
@@ -85,7 +75,9 @@ export default function TweetItem({tweet,entityName,person}){
                                     <Col>
                                         <span className={styles.personScreenName}>@{screen_name}</span>
                                         <span>&nbsp;·&nbsp;</span>
-                                        <time className={styles.postTime} title={`Time Posted: ${new Date(i.tweet_date).toUTCString()}`} dateTime={new Date(i.tweet_date).toISOString()}>
+                                        <time className={styles.postTime}
+                                              title={`Time Posted: ${new Date(i.tweet_date).toUTCString()}`}
+                                              dateTime={new Date(i.tweet_date).toISOString()}>
                                             {timeAgoTweet(i.tweet_date)}
                                         </time>
                                         <span>&nbsp;·&nbsp;</span>
@@ -100,7 +92,7 @@ export default function TweetItem({tweet,entityName,person}){
                 </Link>
             </Row>
             <Row className={"mt-2"}>
-                <Linkify inputText = {i.body} entity={entityName} />
+                <Linkify inputText={i.body} entity={entityName}/>
             </Row>
         </Card>
     )

@@ -1,20 +1,21 @@
 import React from "react"
 import {useRouter} from "next/router";
 import MainContainer from "../../../components/MainContainer";
-import {Row, Col, Container} from "react-bootstrap";
+import {Container} from "react-bootstrap";
 import PaginationBar from "../../../components/PaginationBar";
 import HeadBlock from "../../../components/HeadBlock";
 import EntitiesBar from "../../../components/EntitiesBar";
 import TweetItem from "../../../components/TweetItem";
 import TweetsSearchForm from "../../../components/TweeetsSearchForm";
-const Tweets = ({entities,tweets}) => {
+
+const Tweets = ({entities, tweets}) => {
     const {query} = useRouter()
     let entityName = 'All'
     let page = 1
     let x1 = query.x1
-    if (x1 != parseInt(x1)){
+    if (x1 != parseInt(x1)) {
         entityName = x1
-    }else {
+    } else {
         page = parseInt(x1)
     }
     let verified = query.verified
@@ -27,12 +28,12 @@ const Tweets = ({entities,tweets}) => {
     let description = 'Last tweets about Ukraine. List tweets Ukraine.'
     let image = '/ukraine-unity.jpeg'
 
-    if(entityName && entityName !== 'All'){
-        title = entityName +' - Ukraine Tweets'
-        h1 = entityName +' - Ukraine Tweets'
+    if (entityName && entityName !== 'All') {
+        title = entityName + ' - Ukraine Tweets'
+        h1 = entityName + ' - Ukraine Tweets'
         description = `Last tweets about ${entityName} and Ukraine. List tweets Ukraine.`
         image = '/ukraine-unity.jpeg'
-    } else if(page && page !== 1){
+    } else if (page && page !== 1) {
         let title = 'Ukraine Tweets - page ' + page
         let h1 = 'Ukraine Tweets'
         let description = 'Last tweets about Ukraine. List tweets Ukraine page ' + page + '.'
@@ -53,7 +54,7 @@ const Tweets = ({entities,tweets}) => {
                 } page={page} pages={pages} query={query}/>
                 <div>
                     {tweets.rows.map(tweet =>
-                        <TweetItem tweet = {tweet} key={tweet.tw_id} entityName={entityName}/>
+                        <TweetItem tweet={tweet} key={tweet.tw_id} entityName={entityName}/>
                     )}
                 </div>
                 <PaginationBar base={
@@ -68,24 +69,23 @@ const Tweets = ({entities,tweets}) => {
 
 export default Tweets;
 
-export async function getServerSideProps({params,query}){
+export async function getServerSideProps({params, query}) {
     let entityName = 'All'
     let page = 1
     let verified = query.verified
-    if (params.x1 != parseInt(params.x1)){
+    if (params.x1 != parseInt(params.x1)) {
         entityName = params.x1
-    }else {
+    } else {
         page = parseInt(params.x1)
     }
-    console.log(params)
+    //console.log(params)
     let limit = 5
 
-    const ent = await fetch(process.env.API_URL +`/entity/?searchType=Bar`)
-    const tw = await fetch(process.env.API_URL +`/tweet/?searchType=Entity&entity=${entityName}&verified=${verified}&page=${page}&limit=${limit}`)
+    const ent = await fetch(process.env.API_URL + `/entity/?searchType=Bar`)
+    const tw = await fetch(process.env.API_URL + `/tweet/?searchType=Entity&entity=${entityName}&verified=${verified}&page=${page}&limit=${limit}`)
     const entities = await ent.json()
     const tweets = await tw.json()
-    //const users = data
-    return{
-        props: {entities,tweets}
+    return {
+        props: {entities, tweets}
     }
 }

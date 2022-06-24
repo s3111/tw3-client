@@ -1,5 +1,3 @@
-//import Link from "next/link";
-//import styles from "../styles/A.module.css"
 import {asPath} from "next";
 import Head from "next/head";
 import React from "react";

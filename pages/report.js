@@ -1,5 +1,4 @@
 import React from "react"
-//import {useRouter} from "next/router";
 import MainContainer from "../components/MainContainer";
 import {Container} from "react-bootstrap";
 import HeadBlock from "../components/HeadBlock";
@@ -9,7 +8,6 @@ const Stat = ({stat}) => {
     let title = 'Ukraine Tweets Reports'
     let h1 = 'Reports - Ukraine Tweets'
     let description = 'Twitter persons list with count tweets about Ukraine'
-    //let image = '/ukraine-unity.jpeg'
     let image = '/Chart1.png'
     console.log('stat', stat)
     const options = {
@@ -26,23 +24,16 @@ const Stat = ({stat}) => {
                 {Object.keys(stat.charts).map((t, k) =>
                     <Chart
                         key={k}
-                        //className={"mt-2"}
-                        //chartType="ScatterChart"
                         chartType="AreaChart"
-                        //chartType="Bar"
                         data={stat.charts[t]}
                         width="100%"
                         height="300px"
                         options={{
                             title: t,
                             height: 300,
-                            //legend: { position: "none" },
-                            //vAxis: { maxValue: 2500 },
                         }}
-                        //legendToggle
                     />
                 )}
-
             </Container>
         </MainContainer>
     );

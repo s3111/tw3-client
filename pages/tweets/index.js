@@ -1,20 +1,19 @@
 import React from "react"
 import {useRouter} from "next/router";
 import MainContainer from "../../components/MainContainer";
-import {Row, Col, Container} from "react-bootstrap";
+import {Container} from "react-bootstrap";
 import PaginationBar from "../../components/PaginationBar";
 import HeadBlock from "../../components/HeadBlock";
 import EntitiesBar from "../../components/EntitiesBar";
 import TweetItem from "../../components/TweetItem";
-import PersonSearchForm from "../../components/PersonSearchForm";
 import TweetsSearchForm from "../../components/TweeetsSearchForm";
-const Tweets = ({entities,tweets}) => {
+
+const Tweets = ({entities, tweets}) => {
     const {query} = useRouter()
     let verified = query.verified
     let page = 1
     let limit = 5
     const pages = Math.ceil(tweets.count / limit)
-
     let title = 'Ukraine Tweets'
     let h1 = 'Ukraine Tweets'
     let description = 'Last tweets about Ukraine. List tweets Ukraine.'
@@ -30,7 +29,7 @@ const Tweets = ({entities,tweets}) => {
                 <PaginationBar base={"/tweets"} page={page} pages={pages} query={query}/>
                 <div>
                     {tweets.rows.map(tweet =>
-                        <TweetItem tweet = {tweet} key={tweet.tw_id}/>
+                        <TweetItem tweet={tweet} key={tweet.tw_id}/>
                     )}
                 </div>
                 <PaginationBar base={"/tweets"} page={page} pages={pages} query={query}/>
@@ -41,19 +40,17 @@ const Tweets = ({entities,tweets}) => {
 
 export default Tweets;
 
-export async function getServerSideProps({params,query}){
-    //let page = params.page ?? 1
+export async function getServerSideProps({params, query}) {
     let verified = query.verified
     console.log(params)
     let page = 1
     let limit = 5
 
-    const ent = await fetch(process.env.API_URL +`/entity/?searchType=Bar`)
-    const tw = await fetch(process.env.API_URL +`/tweet/?searchType=Entity&entity=All&verified=${verified}&page=${page}&limit=${limit}`)
+    const ent = await fetch(process.env.API_URL + `/entity/?searchType=Bar`)
+    const tw = await fetch(process.env.API_URL + `/tweet/?searchType=Entity&entity=All&verified=${verified}&page=${page}&limit=${limit}`)
     const entities = await ent.json()
     const tweets = await tw.json()
-    //const users = data
-    return{
-        props: {entities,tweets}
+    return {
+        props: {entities, tweets}
     }
 }

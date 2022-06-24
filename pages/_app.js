@@ -1,11 +1,9 @@
 import '../styles/global.css'
-//import 'bootstrap/dist/css/bootstrap.min.css';
-import { useRouter } from 'next/router';
-import { useEffect } from "react";
+import {useRouter} from 'next/router';
+import {useEffect} from "react";
 import 'bootstrap/dist/css/bootstrap.css'
 
-function MyApp({ Component, pageProps }) {
-    // --- ga ---
+function MyApp({Component, pageProps}) {
     const router = useRouter();
     const handleRouteChange = (url) => {
         window.gtag('config', 'UA-5867435-49', {

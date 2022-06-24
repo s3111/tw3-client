@@ -14,16 +14,13 @@ const Persons = ({users}) => {
     let limit = 10
     let order = query.order || 'followers'
     let verified = query.verified
-    //const [verified, setVerified] = useState(query.verified)
-
     const pages = Math.ceil(users.count / limit)
-
     let title = 'Persons - Ukraine Tweets'
     let h1 = 'Persons - Ukraine Tweets'
     let description = 'Twitter persons list with count tweets about Ukraine'
     let image = 'https://ukraine.web2ua.com/ukraine-unity.jpeg'
 
-    if(verified === '1'){
+    if (verified === '1') {
         title = 'Verified persons - Ukraine Tweets'
         h1 = 'Persons - Ukraine Tweets'
         description = 'Persons list verified by Twitter with count tweets about Ukraine'
@@ -40,9 +37,9 @@ const Persons = ({users}) => {
                     {users.rows.map(user =>
                         <Row key={user.tw_id} className={"my-3"}>
                             <Col xs={6}>
-                                <PersonListItem user = {user}/>
+                                <PersonListItem user={user}/>
                             </Col>
-                            <Col xs={6} >
+                            <Col xs={6}>
                                 <Row>
                                     <Col
                                         className={"text-right"}
@@ -67,22 +64,22 @@ const Persons = ({users}) => {
                                         >
                                             <div>
                                                 <ProgressBar
-                                                    now={user.followers_count/users.stat.maxFollowers*100}
+                                                    now={user.followers_count / users.stat.maxFollowers * 100}
                                                     variant={'primary'}
                                                     style={{height: '5px'}}
                                                 />
                                                 <ProgressBar
-                                                    now={user.friends_count/users.stat.maxFriends*100}
+                                                    now={user.friends_count / users.stat.maxFriends * 100}
                                                     variant={'warning'}
                                                     style={{height: '5px'}}
                                                 />
                                                 <ProgressBar
-                                                    now={user.statuses_count/users.stat.maxStatuses*100}
+                                                    now={user.statuses_count / users.stat.maxStatuses * 100}
                                                     variant={'info'}
                                                     style={{height: '5px'}}
                                                 />
                                                 <ProgressBar
-                                                    now={user.statuses_capt_count/users.stat.maxStatusesCapt*100}
+                                                    now={user.statuses_capt_count / users.stat.maxStatusesCapt * 100}
                                                     variant={'success'}
                                                     style={{height: '5px'}}
                                                 />
@@ -103,92 +100,16 @@ const Persons = ({users}) => {
 
 export default Persons;
 
-export async function getServerSideProps({params, query}){
+export async function getServerSideProps({params, query}) {
     console.log(params, query)
     let order = query.order ?? 'default'
     let verified = query.verified
     let page = 1
     let limit = 10
-    const response = await fetch(process.env.API_URL +`/person/?searchType=List&verified=${verified}&order=${order}&page=${page}&limit=${limit}`)
+    const response = await fetch(process.env.API_URL + `/person/?searchType=List&verified=${verified}&order=${order}&page=${page}&limit=${limit}`)
     const data = await response.json()
     const users = data
-    return{
+    return {
         props: {users}
     }
-}
-
-{
-    /*
-                                    <Row>
-                                    <Col
-                                        className={"text-right"}
-                                        style={{textAlign: 'right'}}
-                                    >
-                                        {formatter(user.followers_count)}
-                                    </Col>
-                                    <Col
-                                        className={"text-right"}
-                                        style={{textAlign: 'right'}}
-                                    >
-                                        {formatter(user.friends_count)}
-                                    </Col>
-
-                                </Row>
-                                <Row>
-                                    <Col
-                                        style={{textAlign: 'right'}}
-                                    >
-                                        {formatter(user.statuses_count)}
-                                    </Col>
-                                    <Col
-                                        className={"text-right font-weight-bold"}
-                                        style={{textAlign: 'right'}}
-                                    >
-                                        {formatter(user.statuses_capt_count)}
-                                    </Col>
-                                </Row>
-
-
-
-                        <Row>
-<Col xs={6}>
-Person
-
-</Col>
-<Col xs={6}>
-<Row>
-<Col className={"font-weight-bold"}>
-followers
-</Col>
-<Col>
-friends
-</Col>
-</Row>
-<Row>
-<Col>
-statuses
-</Col>
-<Col>
-UA statuses
-</Col>
-</Row>
-
-</Col>
-
-</Row>
-
-{user.average_sentiment.toFixed(2)}
-                                                <ProgressBar
-            now={user.average_sentiment}
-            max={1}
-            min={-1}
-            variant={
-                user.average_sentiment > 0
-                    ? 'success'
-                    : 'danger'
-            }
-            style={{height: '5px'}}
-        />
-
-     */
 }

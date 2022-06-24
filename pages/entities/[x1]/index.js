@@ -7,14 +7,14 @@ import HeadBlock from "../../../components/HeadBlock";
 import EntitiesTypesBar from "../../../components/EntitiesTypesBar";
 import EntityItem from "../../../components/EntityItem";
 
-const Entities = ({entities,entitiesTypes}) => {
+const Entities = ({entities, entitiesTypes}) => {
     const {query} = useRouter()
     let page = 1
     let entityType = 'All'
     let x1 = query.x1
-    if (x1 != parseInt(x1)){
+    if (x1 != parseInt(x1)) {
         entityType = x1
-    }else {
+    } else {
         page = parseInt(x1)
     }
     let limit = 20
@@ -43,7 +43,7 @@ const Entities = ({entities,entitiesTypes}) => {
                         <Col xs={"2"}><b>Tweets</b></Col>
                     </Row>
                     {entities.rows.map(entity =>
-                        <EntityItem entity = {entity} key={entity.id}/>
+                        <EntityItem entity={entity} key={entity.id}/>
                     )}
                 </div>
                 <PaginationBar base={
@@ -58,26 +58,22 @@ const Entities = ({entities,entitiesTypes}) => {
 
 export default Entities;
 
-export async function getServerSideProps({params}){
-    //let page = params.page ?? 1
-    //let limit = params.limit ?? 20
-    //console.log(params)
+export async function getServerSideProps({params}) {
     let page = 1
     let limit = 20
     let name = 'All'
 
-    if (params.x1 != parseInt(params.x1)){
+    if (params.x1 != parseInt(params.x1)) {
         name = params.x1
-    }else {
+    } else {
         page = parseInt(params.x1)
     }
 
-    const ent = await fetch(process.env.API_URL +`/entity?searchType=List&name=${name}&page=${page}&limit=${limit}`)
-    const types = await fetch(process.env.API_URL +`/entity/types?searchType=All`)
+    const ent = await fetch(process.env.API_URL + `/entity?searchType=List&name=${name}&page=${page}&limit=${limit}`)
+    const types = await fetch(process.env.API_URL + `/entity/types?searchType=All`)
     const entities = await ent.json()
     const entitiesTypes = await types.json()
-    //const users = data
-    return{
-        props: {entities,entitiesTypes}
+    return {
+        props: {entities, entitiesTypes}
     }
 }

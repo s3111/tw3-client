@@ -7,6 +7,7 @@ import PaginationBar from "../../components/PaginationBar";
 import PersonListItem from "../../components/PersonListItem";
 import PersonSearchForm from "../../components/PersonSearchForm";
 import {personEmotion, formatter} from "../../utils/common"
+
 const Persons = ({users}) => {
     const {query} = useRouter()
     let page = parseInt(query.page)
@@ -21,13 +22,11 @@ const Persons = ({users}) => {
     let description = 'Twitter persons list with count tweets about Ukraine, page ' + page
     let image = '/ukraine-unity.jpeg'
 
-    if(verified === '1'){
+    if (verified === '1') {
         title = 'Verified persons - Ukraine Tweets - page ' + page
         h1 = 'Persons - Ukraine Tweets'
         description = 'Persons list verified by Twitter with count tweets about Ukraine, page ' + page
     }
-
-
 
     return (
         <MainContainer>
@@ -40,9 +39,9 @@ const Persons = ({users}) => {
                     {users.rows.map(user =>
                         <Row key={user.tw_id} className={"my-3"}>
                             <Col xs={6}>
-                                <PersonListItem user = {user}/>
+                                <PersonListItem user={user}/>
                             </Col>
-                            <Col xs={6} >
+                            <Col xs={6}>
                                 <Row>
                                     <Col
                                         className={"text-right"}
@@ -67,22 +66,22 @@ const Persons = ({users}) => {
                                         >
                                             <div>
                                                 <ProgressBar
-                                                    now={user.followers_count/users.stat.maxFollowers*100}
+                                                    now={user.followers_count / users.stat.maxFollowers * 100}
                                                     variant={'primary'}
                                                     style={{height: '5px'}}
                                                 />
                                                 <ProgressBar
-                                                    now={user.friends_count/users.stat.maxFriends*100}
+                                                    now={user.friends_count / users.stat.maxFriends * 100}
                                                     variant={'warning'}
                                                     style={{height: '5px'}}
                                                 />
                                                 <ProgressBar
-                                                    now={user.statuses_count/users.stat.maxStatuses*100}
+                                                    now={user.statuses_count / users.stat.maxStatuses * 100}
                                                     variant={'info'}
                                                     style={{height: '5px'}}
                                                 />
                                                 <ProgressBar
-                                                    now={user.statuses_capt_count/users.stat.maxStatusesCapt*100}
+                                                    now={user.statuses_capt_count / users.stat.maxStatusesCapt * 100}
                                                     variant={'success'}
                                                     style={{height: '5px'}}
                                                 />
@@ -103,58 +102,16 @@ const Persons = ({users}) => {
 
 export default Persons;
 
-export async function getServerSideProps({params,query}){
+export async function getServerSideProps({params, query}) {
     let page = params.page ?? 1
     let order = query.order ?? 'default'
     let verified = query.verified
     console.log(params)
-    //let page = 1
     let limit = 10
-    const response = await fetch(process.env.API_URL +`/person/?searchType=List&verified=${verified}&order=${order}&page=${page}&limit=${limit}`)
+    const response = await fetch(process.env.API_URL + `/person/?searchType=List&verified=${verified}&order=${order}&page=${page}&limit=${limit}`)
     const data = await response.json()
     const users = data
-    return{
+    return {
         props: {users}
     }
 }
-/*
-    return (
-        <MainContainer>
-            <HeadBlock description={description} image={image} title={title}/>
-            <Container style={{maxWidth: '700px'}}>
-                <h1>{h1}</h1>
-                <PersonSearchForm order={order} verified={verified}/>
-                <PaginationBar base={"/persons"} page={page} pages={pages} query={query}/>
-                <div>
-                    {users.rows.map(user =>
-                        <Row key={user.tw_id} className={"my-2"}>
-                            <Col xs={6}>
-                                <PersonListItem user = {user}/>
-                            </Col>
-                            <Col xs={6} >
-                                <Row>
-                                    <Col className={"text-right"}>
-                                       {formatter(user.followers_count)}
-                                    </Col>
-                                    <Col className={"text-right"}>
-                                       {formatter(user.friends_count)}
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col className={"text-right"}>
-                                       {formatter(user.statuses_count)}
-                                    </Col>
-                                    <Col className={"text-right"}>
-                                       {formatter(user.statuses_capt_count)}
-                                    </Col>
-                                </Row>
-                            </Col>
-                        </Row>
-                    )}
-                </div>
-                <PaginationBar base={"/persons"} page={page} pages={pages} query={query}/>
-            </Container>
-        </MainContainer>
-    );
-
- */

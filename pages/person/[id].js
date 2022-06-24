@@ -1,29 +1,27 @@
 import {useRouter} from "next/router";
-//import styles from "../../styles/user.module.scss"
 import MainContainer from "../../components/MainContainer";
 import HeadBlock from "../../components/HeadBlock";
 import React from "react";
-import {Col, Container, Pagination, Row} from "react-bootstrap";
+import {Col, Container, Row} from "react-bootstrap";
 import TweetItem from "../../components/TweetItem";
 import {personEmotion, formatter} from "../../utils/common";
 
-export default function User({person,tweets}){
+export default function User({person, tweets}) {
     const {query} = useRouter()
-
     let title = 'Person Ukraine Tweets'
     let h1 = 'Person Ukraine Tweets'
     let description = ''
     let image = '/ukraine-unity.jpeg'
 
-    if(person.name)  {
+    if (person.name) {
         h1 = person.name + ' - ' + h1
         title = `${person.name} - Ukraine Tweets`
-        description = '@' + person.screen_name +' ' + (person.description ? person.description : '') + (person.location ? person.location : '')
+        description = '@' + person.screen_name + ' ' + (person.description ? person.description : '') + (person.location ? person.location : '')
         image = person.profile_banner_url ? person.profile_banner_url : '/ukraine-unity.jpeg'
     }
     let p = person
 
-    return(
+    return (
         <MainContainer>
             <HeadBlock description={description} image={image} title={title}/>
             <Container style={{maxWidth: '700px'}}>
@@ -36,7 +34,7 @@ export default function User({person,tweets}){
                                 <Row>
                                     <Col style={{
                                         backgroundImage: `url(${p.profile_banner_url})`,
-                                        height:'300px',
+                                        height: '300px',
                                         backgroundSize: 'cover',
                                     }}>
                                     </Col>
@@ -54,7 +52,8 @@ export default function User({person,tweets}){
                                                     <span className="font-weight-bold">{p.name}</span>
                                                 </Row>
                                                 <Row>
-                                                    <span className="text-secondary text-sm-start" style={{fontSize:'.875rem'}}>@{p.screen_name}</span>
+                                                    <span className="text-secondary text-sm-start"
+                                                          style={{fontSize: '.875rem'}}>@{p.screen_name}</span>
                                                 </Row>
                                             </Col>
                                         </Row>
@@ -90,7 +89,8 @@ export default function User({person,tweets}){
                                         {p.favourites_count ? 'Favourites: ' + formatter(p.favourites_count) : null}
                                     </Col>
                                     <Col>
-                                        {p.average_sentiment ? <span>Avg sentiment: {personEmotion(p.average_sentiment)}</span> : null}
+                                        {p.average_sentiment ?
+                                            <span>Avg sentiment: {personEmotion(p.average_sentiment)}</span> : null}
                                     </Col>
                                 </Row>
 
@@ -98,7 +98,7 @@ export default function User({person,tweets}){
                             :
                             <div>
                                 <h1 style={{fontSize: '18px'}}>{h1}</h1>
-                                Looks like we have no information about {query.id}<br />
+                                Looks like we have no information about {query.id}<br/>
                                 You can try open it in&nbsp;
                                 <a
                                     href={"https://twitter.com/" + query.id}
@@ -106,25 +106,12 @@ export default function User({person,tweets}){
                                 >Twitter</a>
                             </div>
                         }
-                        {
-                            /*
-                        <div className={"mt-5"}>
-                            Back to <span
-                            onClick={() => history.back()}
-                            className={'text-primary'}
-                            style={{cursor:'pointer'}}
-                        >previous page</span>
-                        </div>
-
-                             */
-                        }
-
                     </Col>
                 </Row>
                 <div className={"mt-4"}>
-                    {tweets.rows?
+                    {tweets.rows ?
                         tweets.rows.map(tweet =>
-                            <TweetItem tweet = {tweet} key={tweet.tw_id} person={person}/>
+                            <TweetItem tweet={tweet} key={tweet.tw_id} person={person}/>
                         )
                         : <span>Looks like we do not have any tweets from this person yet.</span>
                     }
@@ -133,20 +120,18 @@ export default function User({person,tweets}){
         </MainContainer>
     )
 }
-export async function getServerSideProps({params}){
-    const pers = await fetch(process.env.API_URL +`/person/${params.id}?searchType=All`)
+
+export async function getServerSideProps({params}) {
+    const pers = await fetch(process.env.API_URL + `/person/${params.id}?searchType=All`)
     const person = await pers.json()
     let tweets = {}
-    if(person.tw_id){
+    if (person.tw_id) {
         let page = 1
         let limit = 10
-        let tw = await fetch(process.env.API_URL +`/tweet?searchType=Person&entity=${person.tw_id}&page=${page}&limit=${limit}`)
+        let tw = await fetch(process.env.API_URL + `/tweet?searchType=Person&entity=${person.tw_id}&page=${page}&limit=${limit}`)
         tweets = await tw.json()
     }
-
-    //console.log(tweets)
-    //const users = data.rows
-    return{
+    return {
         props: {person, tweets}
     }
 }
